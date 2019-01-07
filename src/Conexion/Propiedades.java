@@ -1,4 +1,4 @@
-package conexion;
+package Conexion;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
