@@ -12,6 +12,7 @@ usu_id INT AUTO_INCREMENT PRIMARY KEY,
 usu_nombre VARCHAR(50) NOT NULL,
 usu_apellido VARCHAR(50) NOT NULL,
 usu_password BLOB NOT NULL,
+usu_login VARCHAR(100),
 usu_mail VARCHAR(100),
 usu_obs VARCHAR(255),
 usu_alta_fecha DATETIME NOT NULL,
@@ -43,6 +44,6 @@ asi_usu INT, FOREIGN KEY (asi_usu) REFERENCES wf_usuarios(usu_id),
 asi_alta_fecha DATETIME,
 asi_modi_fecha DATETIME,
 asi_baja INT
-)
+);
 
 SET FOREIGN_KEY_CHECKS=1;
