@@ -21,11 +21,9 @@ public class Conexion
 			String username = Propiedades.getPropertyValue("baseUsuario", path);
 			String password = Propiedades.getPropertyValue("baseContrasenia", path);
 			this.connection = DriverManager.getConnection(url, username, password);
-			System.out.println("Conexion exitosa");
 		}
 		catch (Exception e)
 		{
-			System.out.println("Conexion fallida");
 			throw new RuntimeException("Conexion fallida");
 		}
 	}
@@ -49,7 +47,6 @@ public class Conexion
 		try
 		{
 			this.connection.close();
-			System.out.println("Conexion cerrada");
 		}
 		catch (SQLException e)
 		{

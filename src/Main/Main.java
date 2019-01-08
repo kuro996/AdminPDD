@@ -2,7 +2,6 @@ package Main;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import Conexion.Conexion;
 import Controladores.LoginController;
 import Pantallas.frmLogin;
 
@@ -16,8 +15,9 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		AdminPDD admin=new AdminPDD();
 		frmLogin formularioLogin = new frmLogin();
-		LoginController ctrLogin = new LoginController(formularioLogin);
+		LoginController ctrLogin = new LoginController(formularioLogin,admin);
 		ctrLogin.inicializar();
 	}
 
