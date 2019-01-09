@@ -35,10 +35,11 @@ public class LoginController implements ActionListener, KeyListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.screen.getBtnIngresar()) {
-			if (modelo.validarUsuario(this.screen.getTextUsu().getText().trim(),
-					this.screen.getTextPass().getText().trim())) {
+			this.modelo.setUsulog(modelo.validarUsuario(this.screen.getTextUsu().getText().trim(),
+					this.screen.getTextPass().getText().trim()));
+			if (this.modelo.getUsulog()!=null) {
 				this.screen.dispose();
-				PrincipalController principal = new PrincipalController(new frmPrincipal());
+				PrincipalController principal = new PrincipalController(new frmPrincipal(),modelo);
 				principal.inicializar();
 			}else {
 				JOptionPane.showMessageDialog(screen, "Usuario y/o contraseña incorrecto", "Error de Login", 1);

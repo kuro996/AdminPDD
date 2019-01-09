@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Conexion.Conexion;
+import DTO.Usuarios;
 
 public class UsuariosDAOSQL {
 	
@@ -15,11 +16,11 @@ public class UsuariosDAOSQL {
 	private static final String validar="CALL validar_usu(?,?);";
 	
 	
-	public static boolean validar(String mail, String pass) {
+	public static Usuarios validar(String mail, String pass) {
 		PreparedStatement statement;
 		ResultSet resultSet; // Guarda el resultado de la query
 		Conexion conexion = Conexion.getConexion();
-		int resultados=0;
+		Usuarios resultados=null;
 		try
 		{
 			statement = conexion.getSQLConexion().prepareStatement(validar);
@@ -29,7 +30,7 @@ public class UsuariosDAOSQL {
 			
 			while (resultSet.next())
 			{
-				resultados++;
+				resultados=new Usuarios(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(5), resultSet.getString(6),resultSet.getString(7),resultSet.getString(8));
 			}
 		} catch (SQLException e)
 		{
@@ -38,7 +39,7 @@ public class UsuariosDAOSQL {
 		
 		conexion.cerrarConexion();
 		
-		return resultados>0;		
+		return resultados;		
 	}
 	
 	

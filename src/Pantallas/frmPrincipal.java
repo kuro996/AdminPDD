@@ -2,17 +2,20 @@ package Pantallas;
 
 import java.awt.Toolkit;
 
-import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JMenuBar;
+import javax.swing.JFrame;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 public class frmPrincipal extends JFrame{
 	
 	JMenuItem itmCerrarSesion;
 	JMenuItem itmSalir;
+	JMenu mnArchivo;
+	JMenu mnNewMenu_1;
+	JMenuBar menuBar;
 	
 	public frmPrincipal() {
 		setTitle("Administracion PDD Jos\u00E9 C. Paz");
@@ -31,10 +34,12 @@ public class frmPrincipal extends JFrame{
 		);
 		getContentPane().setLayout(groupLayout);
 		
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnArchivo = new JMenu("Archivo");
+		mnArchivo = new JMenu("Archivo");
+		mnArchivo.setToolTipText("");
+		mnArchivo.setName("");
 		menuBar.add(mnArchivo);
 		
 		itmCerrarSesion = new JMenuItem("Cerrar Sesion");
@@ -43,9 +48,33 @@ public class frmPrincipal extends JFrame{
 		itmSalir = new JMenuItem("Salir");
 		mnArchivo.add(itmSalir);
 		
-		JMenu mnNewMenu_1 = new JMenu("New menu");
+		mnNewMenu_1 = new JMenu("New menu");
 		menuBar.add(mnNewMenu_1);
 				
+	}
+
+	public JMenu getMnArchivo() {
+		return mnArchivo;
+	}
+
+	public void setMnArchivo(JMenu mnArchivo) {
+		this.mnArchivo = mnArchivo;
+	}
+
+	public JMenu getMnNewMenu_1() {
+		return mnNewMenu_1;
+	}
+
+	public void setMnNewMenu_1(JMenu mnNewMenu_1) {
+		this.mnNewMenu_1 = mnNewMenu_1;
+	}
+
+	public JMenuBar getMenuBar() {
+		return menuBar;
+	}
+
+	public void setMenuBar(JMenuBar menuBar) {
+		this.menuBar = menuBar;
 	}
 
 	public JMenuItem getItmCerrarSesion() {
