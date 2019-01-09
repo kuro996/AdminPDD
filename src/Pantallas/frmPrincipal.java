@@ -11,11 +11,12 @@ import javax.swing.JMenuItem;
 
 public class frmPrincipal extends JFrame{
 	
-	JMenuItem itmCerrarSesion;
-	JMenuItem itmSalir;
-	JMenu mnArchivo;
-	JMenu mnNewMenu_1;
-	JMenuBar menuBar;
+	private JMenuItem itmCerrarSesion;
+	private JMenuItem itmSalir;
+	private JMenu mnArchivo;
+	private JMenu mnSeguridad;
+	private JMenuBar menuBar;
+	private JMenuItem itmPermisosPorUsuarios;
 	
 	public frmPrincipal() {
 		setTitle("Administracion PDD Jos\u00E9 C. Paz");
@@ -48,8 +49,11 @@ public class frmPrincipal extends JFrame{
 		itmSalir = new JMenuItem("Salir");
 		mnArchivo.add(itmSalir);
 		
-		mnNewMenu_1 = new JMenu("New menu");
-		menuBar.add(mnNewMenu_1);
+		mnSeguridad = new JMenu("Seguridad");
+		menuBar.add(mnSeguridad);
+		
+		mntmPermisosPorUsuarios = new JMenuItem("Permisos por Usuarios");
+		mnSeguridad.add(mntmPermisosPorUsuarios);
 				
 	}
 
@@ -62,11 +66,11 @@ public class frmPrincipal extends JFrame{
 	}
 
 	public JMenu getMnNewMenu_1() {
-		return mnNewMenu_1;
+		return mnSeguridad;
 	}
 
 	public void setMnNewMenu_1(JMenu mnNewMenu_1) {
-		this.mnNewMenu_1 = mnNewMenu_1;
+		this.mnSeguridad = mnNewMenu_1;
 	}
 
 	public JMenuBar getMenuBar() {
@@ -92,5 +96,23 @@ public class frmPrincipal extends JFrame{
 	public void setItmSalir(JMenuItem itmSalir) {
 		this.itmSalir = itmSalir;
 	}
+
+	public JMenu getMnSeguridad() {
+		return mnSeguridad;
+	}
+
+	public void setMnSeguridad(JMenu mnSeguridad) {
+		this.mnSeguridad = mnSeguridad;
+	}
+
+	public JMenuItem getItmPermisosPorUsuarios() {
+		return itmPermisosPorUsuarios;
+	}
+
+	public void setItmPermisosPorUsuarios(JMenuItem mntmPermisosPorUsuarios) {
+		this.itmPermisosPorUsuarios = mntmPermisosPorUsuarios;
+	}
+	
+	
 
 }

@@ -38,6 +38,8 @@ public class PrincipalController implements ActionListener {
 			Main.main(null);
 		}else if(e.getSource()==this.ventana.getItmSalir()) {
 			this.ventana.dispose();
+		}else if(e.getSource()==this.ventana.getItmPermisosPorUsuarios()) {
+			
 		}
 		
 	}
