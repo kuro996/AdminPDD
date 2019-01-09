@@ -10,6 +10,10 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 public class frmPrincipal extends JFrame{
+	
+	JMenuItem itmCerrarSesion;
+	JMenuItem itmSalir;
+	
 	public frmPrincipal() {
 		setTitle("Administracion PDD Jos\u00E9 C. Paz");
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -30,15 +34,34 @@ public class frmPrincipal extends JFrame{
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("New menu");
-		menuBar.add(mnNewMenu);
+		JMenu mnArchivo = new JMenu("Archivo");
+		menuBar.add(mnArchivo);
 		
-		JMenuItem mntmCerrar = new JMenuItem("Cerrar ");
-		mnNewMenu.add(mntmCerrar);
+		itmCerrarSesion = new JMenuItem("Cerrar Sesion");
+		mnArchivo.add(itmCerrarSesion);
+		
+		itmSalir = new JMenuItem("Salir");
+		mnArchivo.add(itmSalir);
 		
 		JMenu mnNewMenu_1 = new JMenu("New menu");
 		menuBar.add(mnNewMenu_1);
 				
+	}
+
+	public JMenuItem getItmCerrarSesion() {
+		return itmCerrarSesion;
+	}
+
+	public void setItmCerrarSesion(JMenuItem itmCerrarSesion) {
+		this.itmCerrarSesion = itmCerrarSesion;
+	}
+
+	public JMenuItem getItmSalir() {
+		return itmSalir;
+	}
+
+	public void setItmSalir(JMenuItem itmSalir) {
+		this.itmSalir = itmSalir;
 	}
 
 }
