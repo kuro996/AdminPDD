@@ -18,6 +18,7 @@ ALTER TABLE wf_funciones AUTO_INCREMENT = 0;
 INSERT INTO `adminpdd`.`wf_funciones` (`fun_padre`, `fun_nombre`, `fun_codigo`) VALUES ('0', 'Principal', 'Principal');
 INSERT INTO `adminpdd`.`wf_funciones` (`fun_padre`, `fun_nombre`, `fun_codigo`) VALUES ('1', 'Seguridad', 'Principal.Seguridad');
 INSERT INTO `adminpdd`.`wf_funciones` (`fun_padre`, `fun_nombre`, `fun_codigo`) VALUES ('2','Permisos', 'Principal.Seguridad.Permisos');
+INSERT INTO `adminpdd`.`wf_funciones` (`fun_padre`, `fun_nombre`, `fun_codigo`) VALUES ('3', 'Editar Permisos', 'Permisos.editar');
 
 INSERT INTO `adminpdd`.`wf_miembros` ( `mie_usu`, `mie_equ`) VALUES ( '2', '1');
 
