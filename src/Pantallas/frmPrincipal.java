@@ -1,5 +1,6 @@
 package Pantallas;
 
+import java.awt.MenuBar;
 import java.awt.Toolkit;
 
 import javax.swing.GroupLayout;
@@ -8,6 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class frmPrincipal extends JFrame{
 	
@@ -19,8 +24,9 @@ public class frmPrincipal extends JFrame{
 	private JMenuItem itmPermisosPorUsuarios;
 	
 	public frmPrincipal() {
+			
 		setTitle("Administracion PDD Jos\u00E9 C. Paz");
-		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		
 		Toolkit t = Toolkit.getDefaultToolkit();
 		this.setBounds(0, 0, t.getScreenSize().width, t.getScreenSize().height);
@@ -52,10 +58,11 @@ public class frmPrincipal extends JFrame{
 		mnSeguridad = new JMenu("Seguridad");
 		menuBar.add(mnSeguridad);
 		
-		mntmPermisosPorUsuarios = new JMenuItem("Permisos por Usuarios");
-		mnSeguridad.add(mntmPermisosPorUsuarios);
+		itmPermisosPorUsuarios = new JMenuItem("Permisos");
+		mnSeguridad.add(itmPermisosPorUsuarios);
 				
 	}
+
 
 	public JMenu getMnArchivo() {
 		return mnArchivo;
@@ -65,12 +72,12 @@ public class frmPrincipal extends JFrame{
 		this.mnArchivo = mnArchivo;
 	}
 
-	public JMenu getMnNewMenu_1() {
+	public JMenu getMnSeguridad1() {
 		return mnSeguridad;
 	}
 
-	public void setMnNewMenu_1(JMenu mnNewMenu_1) {
-		this.mnSeguridad = mnNewMenu_1;
+	public void setMnSeguridad1(JMenu Seguridad) {
+		this.mnSeguridad = Seguridad;
 	}
 
 	public JMenuBar getMenuBar() {
@@ -105,11 +112,11 @@ public class frmPrincipal extends JFrame{
 		this.mnSeguridad = mnSeguridad;
 	}
 
-	public JMenuItem getItmPermisosPorUsuarios() {
+	public JMenuItem getItmPermisos() {
 		return itmPermisosPorUsuarios;
 	}
 
-	public void setItmPermisosPorUsuarios(JMenuItem mntmPermisosPorUsuarios) {
+	public void setItmPermisos(JMenuItem mntmPermisosPorUsuarios) {
 		this.itmPermisosPorUsuarios = mntmPermisosPorUsuarios;
 	}
 	

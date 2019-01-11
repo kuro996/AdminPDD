@@ -2,6 +2,8 @@ package Componentes;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.EventListener;
@@ -26,8 +28,6 @@ public class JCheckBoxTree extends JTree {
 
     JCheckBoxTree selfPointer = this;
 
-
-
     // Defining data structure that will enable to fast check-indicate the state of each node
     // It totally replaces the "selection" mechanism of the JTree
     private class CheckedNode {
@@ -41,6 +41,7 @@ public class JCheckBoxTree extends JTree {
             allChildrenSelected = allChildrenSelected_;
         }
     }
+    
     HashMap<TreePath, CheckedNode> nodesCheckingState;
     HashSet<TreePath> checkedPaths = new HashSet<TreePath>();
 
@@ -189,10 +190,15 @@ public class JCheckBoxTree extends JTree {
             public void mouseReleased(MouseEvent arg0) {
             }           
         });
-        this.setSelectionModel(dtsm);
+        
     }
 
-    // When a node is checked/unchecked, updating the states of the predecessors
+    private void addAncestorListener(ActionListener actionListener)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	// When a node is checked/unchecked, updating the states of the predecessors
     protected void updatePredecessorsWithCheckMode(TreePath tp, boolean check) {
         TreePath parentPath = tp.getParentPath();
         // If it is the root, stop the recursive calls and return
@@ -241,4 +247,11 @@ public class JCheckBoxTree extends JTree {
         }
     }
 
+    @Override
+	public void clearSelection(){
+    	for(TreePath i : this.checkedPaths) {
+    		this.nodesCheckingState.get(i).isSelected=false;
+    	}
+    }
+    
 }

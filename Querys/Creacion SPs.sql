@@ -32,7 +32,7 @@ BEGIN
 END //
 DELIMITER ;
 
-DROP PROCEDURE get_permisos;
+DROP PROCEDURE IF EXISTS get_permisos;
 
 DELIMITER //
 CREATE PROCEDURE get_permisos(pantalla VARCHAR(255), usuario INT)
@@ -69,8 +69,8 @@ ELSE
 			fun_codigo
 		FROM wf_funciones 
 			INNER JOIN wf_asignaciones ON asi_fun=fun_id 
-			INNER JOIN wf_usuarios ON usu_id=asi_usu
-		WHERE fun_padre=(SELECT fun FROM Funciones WHERE id=@count) AND usu_id=usuario AND asi_baja=0;
+			INNER JOIN wf_usuarios ON usu_id=asi_usu OR asi_equ IN (SELECT equ_id FROM wf_equipos INNER JOIN wf_miembros ON mie_equ=equ_id WHERE mie_usu=usu_id AND mie_baja=0 AND equ_baja=0)
+		WHERE fun_padre=(SELECT fun FROM Funciones WHERE id=@count) AND usu_id=usuario AND asi_baja=0 AND usu_baja=0 AND fun_baja=0;
 		
 		SET @count=@count+1;
 		
