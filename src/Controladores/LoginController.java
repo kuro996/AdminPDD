@@ -29,6 +29,8 @@ public class LoginController implements ActionListener, KeyListener {
 
 	public void inicializar() {
 		this.screen.setVisible(true);
+		this.screen.getTextUsu().setText("libanez");
+		this.screen.getTextPass().setText("Kuro1996");
 
 	}
 

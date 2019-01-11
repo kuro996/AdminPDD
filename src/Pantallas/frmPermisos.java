@@ -1,34 +1,31 @@
 package Pantallas;
 
-import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Componentes.JCheckBoxTree;
-
-import javax.swing.JPanel;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JTree;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import java.awt.Dimension;
-import javax.swing.JRadioButton;
 
 public class frmPermisos extends JDialog{
 	private JTable tblAsig;
 	private JButton btnEditar;
 	private JButton btnCancelar;
-	private JComboBox cmbPantalla;
 	private JCheckBoxTree arbPermisos;
 	private JRadioButton rdbtnUsuarios;
 	private JRadioButton rdbtnEquipos;
+	private JScrollPane scrollPane_1;
 	
 	
 	public frmPermisos() {
@@ -36,7 +33,7 @@ public class frmPermisos extends JDialog{
 		setTitle("Permisos por Usuario");
 		setModal(true);
 		
-		setBounds(100, 100, 400, 550);
+		setBounds(100, 100, 410, 550);
 		
 		btnEditar = new JButton("Editar");
 		
@@ -45,24 +42,16 @@ public class frmPermisos extends JDialog{
 		
 		JPanel panelArbol = new JPanel();
 		
-		cmbPantalla = new JComboBox();
-		
-		JLabel lblPantalla = new JLabel("Pantalla");
-		
 		JPanel panelTbl = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+					.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
-					.addGap(18)
-					.addComponent(lblPantalla)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(cmbPantalla, 0, 164, Short.MAX_VALUE)
-					.addContainerGap())
-				.addComponent(panelArbol, GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
+					.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(238))
+				.addComponent(panelArbol, GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
 				.addComponent(panelTbl, GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
 		);
 		groupLayout.setVerticalGroup(
@@ -70,19 +59,18 @@ public class frmPermisos extends JDialog{
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(cmbPantalla, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPantalla))
+						.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panelArbol, GroupLayout.PREFERRED_SIZE, 292, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelTbl, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
+					.addComponent(panelTbl, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
 		tblAsig = new JTable();
 		scrollPane.setViewportView(tblAsig);
+		
 		
 		rdbtnUsuarios = new JRadioButton("Usuarios");
 		rdbtnUsuarios.setSelected(true);
@@ -116,13 +104,20 @@ public class frmPermisos extends JDialog{
 		gbl_panelArbol.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		panelArbol.setLayout(gbl_panelArbol);
 		
+		ButtonGroup bottonGroup=new ButtonGroup();
+		bottonGroup.add(rdbtnUsuarios);
+		bottonGroup.add(rdbtnEquipos);
+		
+		scrollPane_1 = new JScrollPane();
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.gridx = 0;
+		gbc_scrollPane_1.gridy = 0;
+		panelArbol.add(scrollPane_1, gbc_scrollPane_1);
+		
 		arbPermisos = new JCheckBoxTree();
+		scrollPane_1.setViewportView(arbPermisos);
 		arbPermisos.setEnabled(false);
-		GridBagConstraints gbc_arbPermisos = new GridBagConstraints();
-		gbc_arbPermisos.fill = GridBagConstraints.BOTH;
-		gbc_arbPermisos.gridx = 0;
-		gbc_arbPermisos.gridy = 0;
-		panelArbol.add(arbPermisos, gbc_arbPermisos);
 		getContentPane().setLayout(groupLayout);
 		
 	}
@@ -161,18 +156,6 @@ public class frmPermisos extends JDialog{
 	public void setBtnCancelar(JButton btnCancelar)
 	{
 		this.btnCancelar = btnCancelar;
-	}
-
-
-	public JComboBox getCmbPantalla()
-	{
-		return cmbPantalla;
-	}
-
-
-	public void setCmbPantalla(JComboBox cmbPantalla)
-	{
-		this.cmbPantalla = cmbPantalla;
 	}
 
 

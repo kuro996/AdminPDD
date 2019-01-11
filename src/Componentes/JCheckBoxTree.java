@@ -76,7 +76,7 @@ public class JCheckBoxTree extends JTree {
         }
     }
 
-    // Override
+    @Override
     public void setModel(TreeModel newModel) {
         super.setModel(newModel);
         resetCheckingState();
@@ -173,7 +173,7 @@ public class JCheckBoxTree extends JTree {
                 if (tp == null) {
                     return;
                 }
-                boolean checkMode = ! nodesCheckingState.get(tp).isSelected;
+                boolean checkMode = ! nodesCheckingState.get(tp).isSelected && isEnabled();
                 checkSubTree(tp, checkMode);
                 updatePredecessorsWithCheckMode(tp, checkMode);
                 // Firing the check change event
@@ -249,9 +249,18 @@ public class JCheckBoxTree extends JTree {
 
     @Override
 	public void clearSelection(){
-    	for(TreePath i : this.checkedPaths) {
-    		this.nodesCheckingState.get(i).isSelected=false;
-    	}
+    	if(selfPointer==null) return;
+    	TreePath tp = selfPointer.getSelectionPath();
+        if (tp == null) {
+            return;
+        }
+        boolean checkMode = ! nodesCheckingState.get(tp).isSelected && isEditable() && isEnabled();
+        checkSubTree(tp, checkMode);
+        updatePredecessorsWithCheckMode(tp, checkMode);
+        // Firing the check change event
+        fireCheckChangeEvent(new CheckChangeEvent(new Object()));
+        // Repainting tree after the data structures were updated
+        selfPointer.repaint();
     }
     
 }
