@@ -44,6 +44,8 @@ public class JCheckBoxTree extends JTree {
     
     HashMap<TreePath, CheckedNode> nodesCheckingState;
     HashSet<TreePath> checkedPaths = new HashSet<TreePath>();
+    
+    
 
     // Defining a new event type for the checking mechanism and preparing event-handling mechanism
     protected EventListenerList listenerList = new EventListenerList();
@@ -173,7 +175,8 @@ public class JCheckBoxTree extends JTree {
                 if (tp == null) {
                     return;
                 }
-                boolean checkMode = ! nodesCheckingState.get(tp).isSelected && isEnabled();
+                boolean checkMode=nodesCheckingState.get(tp).isSelected;
+                if (isEnabled())  checkMode = ! nodesCheckingState.get(tp).isSelected ;
                 checkSubTree(tp, checkMode);
                 updatePredecessorsWithCheckMode(tp, checkMode);
                 // Firing the check change event
@@ -247,20 +250,5 @@ public class JCheckBoxTree extends JTree {
         }
     }
 
-    @Override
-	public void clearSelection(){
-    	if(selfPointer==null) return;
-    	TreePath tp = selfPointer.getSelectionPath();
-        if (tp == null) {
-            return;
-        }
-        boolean checkMode = ! nodesCheckingState.get(tp).isSelected && isEditable() && isEnabled();
-        checkSubTree(tp, checkMode);
-        updatePredecessorsWithCheckMode(tp, checkMode);
-        // Firing the check change event
-        fireCheckChangeEvent(new CheckChangeEvent(new Object()));
-        // Repainting tree after the data structures were updated
-        selfPointer.repaint();
-    }
-    
+        
 }

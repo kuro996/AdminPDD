@@ -1,11 +1,17 @@
 package Controladores;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeSelectionModel;
+
+import Componentes.JCheckBoxTree;
 import Main.AdminPDD;
 import Pantallas.frmPermisos;
 
@@ -24,10 +30,16 @@ public class PermisoController implements ActionListener, MouseListener {
 	}
 
 	public void inicializar() {
+
+		DefaultTreeModel newNode = new DefaultTreeModel(new CheckedNode(true), true);
+	
+		this.ventana.getArbPermisos().setModel(newNode);
+		
 		for (int i = 0; i < this.ventana.getArbPermisos().getRowCount(); i++) {
 			this.ventana.getArbPermisos().expandRow(i);
 		}
 		this.ventana.setVisible(true);
+		System.out.println();
 	}
 
 	private void verificarPermisos() {
@@ -44,9 +56,9 @@ public class PermisoController implements ActionListener, MouseListener {
 				this.ventana.getArbPermisos().setEnabled(true);
 								
 			} else {
-				this.ventana.getArbPermisos().clearSelection();
-				this.ventana.getArbPermisos().setEnabled(false);
 				this.ventana.getBtnEditar().setText("Editar");
+				this.ventana.getArbPermisos().setEnabled(false);
+				this.ventana.getArbPermisos().setEditable(false);
 				
 			}
 		}

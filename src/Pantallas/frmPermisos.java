@@ -17,6 +17,8 @@ import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Componentes.JCheckBoxTree;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 public class frmPermisos extends JDialog{
 	private JTable tblAsig;
@@ -32,6 +34,8 @@ public class frmPermisos extends JDialog{
 		setMinimumSize(new Dimension(400, 500));
 		setTitle("Permisos por Usuario");
 		setModal(true);
+		
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
 		setBounds(100, 100, 410, 550);
 		
