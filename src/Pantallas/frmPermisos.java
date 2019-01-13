@@ -19,6 +19,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import Componentes.JCheckBoxTree;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.table.DefaultTableModel;
 
 public class frmPermisos extends JDialog{
 	private JTable tblAsig;
@@ -28,6 +29,7 @@ public class frmPermisos extends JDialog{
 	private JRadioButton rdbtnUsuarios;
 	private JRadioButton rdbtnEquipos;
 	private JScrollPane scrollPane_1;
+	private ButtonGroup bottonGroup;
 	
 	
 	public frmPermisos() {
@@ -77,9 +79,19 @@ public class frmPermisos extends JDialog{
 		
 		
 		rdbtnUsuarios = new JRadioButton("Usuarios");
+		rdbtnUsuarios.setFocusPainted(false);
+		rdbtnUsuarios.setRequestFocusEnabled(false);
+		rdbtnUsuarios.setRolloverEnabled(false);
+		rdbtnUsuarios.setVerifyInputWhenFocusTarget(false);
+		rdbtnUsuarios.setFocusable(false);
 		rdbtnUsuarios.setSelected(true);
 		
 		rdbtnEquipos = new JRadioButton("Equipos");
+		rdbtnEquipos.setFocusPainted(false);
+		rdbtnEquipos.setRequestFocusEnabled(false);
+		rdbtnEquipos.setRolloverEnabled(false);
+		rdbtnEquipos.setFocusable(false);
+		
 		GroupLayout gl_panelTbl = new GroupLayout(panelTbl);
 		gl_panelTbl.setHorizontalGroup(
 			gl_panelTbl.createParallelGroup(Alignment.LEADING)
@@ -108,7 +120,7 @@ public class frmPermisos extends JDialog{
 		gbl_panelArbol.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		panelArbol.setLayout(gbl_panelArbol);
 		
-		ButtonGroup bottonGroup=new ButtonGroup();
+		bottonGroup=new ButtonGroup();
 		bottonGroup.add(rdbtnUsuarios);
 		bottonGroup.add(rdbtnEquipos);
 		
@@ -197,4 +209,18 @@ public class frmPermisos extends JDialog{
 	{
 		this.rdbtnEquipos = rdbtnEquipos;
 	}
+
+
+	public ButtonGroup getBottonGroup()
+	{
+		return bottonGroup;
+	}
+
+
+	public void setBottonGroup(ButtonGroup bottonGroup)
+	{
+		this.bottonGroup = bottonGroup;
+	}
+	
+	
 }

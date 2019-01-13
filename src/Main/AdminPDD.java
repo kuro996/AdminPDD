@@ -3,23 +3,27 @@ package Main;
 
 import java.util.ArrayList;
 
+import DAOSQL.EquiposDAOSQL;
 import DAOSQL.GeneralSQL;
 import DAOSQL.UsuariosDAOSQL;
-import DTO.Usuarios;
+import DTO.Equipo;
+import DTO.Usuario;
 
 public class AdminPDD {
 
 	public boolean logiado;
 	private UsuariosDAOSQL usu;
-	private Usuarios usulog;
+	private EquiposDAOSQL equ;
+	private Usuario usulog;
 	private GeneralSQL gen;
 	
 	public AdminPDD() {
 		this.logiado=false;
 		this.usu = new UsuariosDAOSQL();
+		this.equ= new EquiposDAOSQL();
 	}
 
-	public Usuarios validarUsuario(String mail, String pass) {
+	public Usuario validarUsuario(String mail, String pass) {
 		return UsuariosDAOSQL.validar(mail, pass);		
 	}
 
@@ -27,12 +31,24 @@ public class AdminPDD {
 		return gen.permisos(name, this.usulog.getId());
 	}
 
-	public Usuarios getUsulog() {
+	public Usuario getUsulog() {
 		return usulog;
 	}
 
-	public void setUsulog(Usuarios usulog) {
+	public void setUsulog(Usuario usulog) {
 		this.usulog = usulog;
+	}
+
+	public ArrayList<Usuario> getUsuarios()
+	{
+		ArrayList<Usuario> usuarios = usu.readAll();
+		return usuarios;
+	}
+
+	public ArrayList<Equipo> getEquipos()
+	{
+		
+		return this.equ.readAll();
 	}	
 	
 }

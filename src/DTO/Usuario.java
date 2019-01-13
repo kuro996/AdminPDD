@@ -1,6 +1,6 @@
 package DTO;
 
-public class Usuarios {
+public class Usuario {
 	
 	private int id;
 	private String nombre;
@@ -10,7 +10,7 @@ public class Usuarios {
 	private String tipo;
 	private String obs;
 	
-	public Usuarios(int id, String nombre, String apellido, String login, String mail,String tipo, String obs) {
+	public Usuario(int id, String nombre, String apellido, String login, String mail,String tipo, String obs) {
 		this.id=id;
 		this.nombre=nombre;
 		this.apellido=apellido;

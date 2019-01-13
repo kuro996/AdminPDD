@@ -3,24 +3,25 @@ package DAOSQL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import Conexion.Conexion;
-import DTO.Usuarios;
+import DTO.Usuario;
 
 public class UsuariosDAOSQL {
 	
 	private static final String insert = "";
 	private static final String delete = "";
-	private static final String readall = "";
+	private static final String readall = "Select * from wf_usuarios where usu_baja=0";
 	private static final String update = "";
 	private static final String validar="CALL validar_usu(?,?);";
 	
 	
-	public static Usuarios validar(String mail, String pass) {
+	public static Usuario validar(String mail, String pass) {
 		PreparedStatement statement;
 		ResultSet resultSet; // Guarda el resultado de la query
 		Conexion conexion = Conexion.getConexion();
-		Usuarios resultados=null;
+		Usuario resultados=null;
 		try
 		{
 			statement = conexion.getSQLConexion().prepareStatement(validar);
@@ -30,7 +31,7 @@ public class UsuariosDAOSQL {
 			
 			while (resultSet.next())
 			{
-				resultados=new Usuarios(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(5), resultSet.getString(6),resultSet.getString(7),resultSet.getString(8));
+				resultados=new Usuario(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(5), resultSet.getString(6),resultSet.getString(7),resultSet.getString(8));
 			}
 		} catch (SQLException e)
 		{
@@ -40,6 +41,32 @@ public class UsuariosDAOSQL {
 		conexion.cerrarConexion();
 		
 		return resultados;		
+	}
+
+
+	public static ArrayList<Usuario> readAll()
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		Conexion conexion = Conexion.getConexion();
+		 ArrayList<Usuario> resultados=new  ArrayList<Usuario>();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(readall);
+			resultSet = statement.executeQuery();
+			
+			while (resultSet.next())
+			{
+				resultados.add(new Usuario(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(5), resultSet.getString(6),resultSet.getString(7),resultSet.getString(8)));
+			}
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		conexion.cerrarConexion();
+		
+		return resultados;
 	}
 	
 	
