@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.ButtonModel;
+import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +14,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import DTO.Equipo;
+import DTO.Funcion;
 import DTO.Usuario;
 import Main.AdminPDD;
 import Pantallas.frmPermisos;
@@ -23,6 +24,8 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 
 	private static final String name = "Principal.Seguridad.Permisos";
 	private frmPermisos ventana;
+	private ArrayList<Usuario> usuarios;
+	private ArrayList<Equipo> equipos;
 	private AdminPDD modelo;
 
 	public PermisoController(frmPermisos ventana, AdminPDD modelo)
@@ -33,6 +36,7 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 		this.ventana.getBtnEditar().addActionListener(this);
 		this.ventana.getRdbtnUsuarios().addActionListener(this);
 		this.ventana.getRdbtnEquipos().addActionListener(this);
+		this.ventana.getTblAsig().addMouseListener(this);
 		this.verificarPermisos();
 	}
 
@@ -57,13 +61,15 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 					return false;
 				}
 			};
-
-			for (Usuario u : this.modelo.getUsuarios())
+			
+			this.usuarios=this.modelo.getUsuarios();
+			for (Usuario u : usuarios)
 			{
 				tabla.addRow(new String[] { String.valueOf(u.getId()), u.getNombre(), u.getApellido(), u.getLogin() });
 			}
-		}else {
-			tabla = new DefaultTableModel(null, new String[] { "Id", "Nombre", "Codigo"})
+		} else
+		{
+			tabla = new DefaultTableModel(null, new String[] { "Id", "Nombre", "Codigo" })
 			{
 				boolean[] columnEditables = new boolean[] { false };
 
@@ -72,10 +78,11 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 					return false;
 				}
 			};
-
-			for (Equipo e : this.modelo.getEquipos())
+			
+			this.equipos=this.modelo.getEquipos();
+			for (Equipo e : equipos)
 			{
-				tabla.addRow(new String[] { String.valueOf(e.getId()), e.getNombre(), e.getCodigo()});
+				tabla.addRow(new String[] { String.valueOf(e.getId()), e.getNombre(), e.getCodigo() });
 			}
 		}
 		this.ventana.getTblAsig().setModel(tabla);
@@ -84,15 +91,30 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 
 	private void llenarArbol()
 	{
-		DefaultMutableTreeNode asd = new DefaultMutableTreeNode("yo");
-
-		for (int i = 0; i < 11; i++)
-		{
-			asd.add(new DefaultMutableTreeNode(String.valueOf(i)));
-		}
-
+		DefaultMutableTreeNode asd = new DefaultMutableTreeNode("Principal");
+		asd=llenarNodo(asd, new Funcion(0, "Principal", "Principal"));
 		DefaultTreeModel as = new DefaultTreeModel(asd);
 		this.ventana.getArbPermisos().setModel(as);
+		for (int i = 0; i < this.ventana.getArbPermisos().getRowCount(); i++)
+		{
+			this.ventana.getArbPermisos().expandRow(i);
+		}
+		
+
+	}
+
+	private DefaultMutableTreeNode llenarNodo(DefaultMutableTreeNode nodo, Funcion f)
+	{
+		ArrayList<Funcion> fun = modelo.obtenerHijos(f.getCodigo());
+		if (fun.size()>0)
+		{
+			for (Funcion i : fun)
+			{
+				DefaultMutableTreeNode newnode = new DefaultMutableTreeNode(i);
+				nodo.add(llenarNodo(newnode, i));
+			}
+		}
+		return nodo;
 
 	}
 
@@ -108,19 +130,30 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 	{
 		if (e.getSource() == this.ventana.getBtnEditar())
 		{
-			if (this.ventana.getBtnEditar().getText().equals("Editar"))
+			if(this.ventana.getTblAsig().getSelectedRow()<0) {
+				JOptionPane.showMessageDialog(this.ventana, "Debe seleccionar una fila","alerta", 1);
+			}
+			else if (this.ventana.getBtnEditar().getText().equals("Editar") )
 			{
 				this.ventana.getBtnEditar().setText("Aceptar");
+				this.ventana.getTblAsig().setEnabled(false);
+				this.ventana.getRdbtnEquipos().setEnabled(false);
+				this.ventana.getRdbtnUsuarios().setEnabled(false);
 				this.ventana.getArbPermisos().setEnabled(true);
+				
 
 			} else
 			{
 				this.ventana.getBtnEditar().setText("Editar");
 				this.ventana.getArbPermisos().setEnabled(false);
+				this.ventana.getTblAsig().setEnabled(true);
+				this.ventana.getRdbtnEquipos().setEnabled(true);
+				this.ventana.getRdbtnUsuarios().setEnabled(true);
 				this.ventana.getArbPermisos().setEditable(false);
 
 			}
-		}else if(e.getSource()==this.ventana.getRdbtnUsuarios() || e.getSource()==this.ventana.getRdbtnEquipos()) {
+		} else if (e.getSource() == this.ventana.getRdbtnUsuarios() || e.getSource() == this.ventana.getRdbtnEquipos())
+		{
 			llenarTablas();
 		}
 	}
@@ -128,7 +161,17 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-
+		if(e.getSource()==this.ventana.getTblAsig()) {
+			this.ventana.getArbPermisos().clearSelections();
+			int row=this.ventana.getTblAsig().getSelectedRow();
+			System.out.println(row);
+			if(row>=0) {
+				for(Funcion i : modelo.obtenerPermisos(this.usuarios.get(row).getId())) {
+					System.out.println(i);
+					this.ventana.getArbPermisos().SelectObject(i.getNombre(), (DefaultMutableTreeNode) this.ventana.getArbPermisos().getModel().getRoot(), 0);
+				}
+			}
+		}
 	}
 
 	@Override
@@ -163,7 +206,7 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 	@Override
 	public void stateChanged(ChangeEvent e)
 	{
-		 
+
 	}
 
 }

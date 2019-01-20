@@ -2,14 +2,16 @@ package Componentes;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EventListener;
 import java.util.EventObject;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -29,7 +31,7 @@ public class JCheckBoxTree extends JTree
 	private static final long serialVersionUID = -4194122328392241790L;
 
 	JCheckBoxTree selfPointer = this;
-	
+
 	private class CheckedNode
 	{
 		boolean isSelected;
@@ -44,7 +46,7 @@ public class JCheckBoxTree extends JTree
 		}
 
 	}
-	
+
 	HashMap<TreePath, CheckedNode> nodesCheckingState;
 	HashSet<TreePath> checkedPaths = new HashSet<TreePath>();
 
@@ -138,28 +140,31 @@ public class JCheckBoxTree extends JTree
 	}
 
 	@Override
-    public void setSelectionRow(int row) {
-		for (int i = 0; i < this.getRowCount(); i++) {
+	public void setSelectionRow(int row)
+	{
+		if(this.nodesCheckingState.get(this.getPathForRow(row)).isSelected) return;
+		for (int i = 0; i < this.getRowCount(); i++)
+		{
 			this.expandRow(i);
 		}
-    	this.nodesCheckingState.put(this.getPathForRow(row), new CheckedNode(true, true, true));
-    	
-    	TreePath tp = this.getPathForRow(row);
-    	
-    	if (tp == null)
-		{
-			return;
-		}
-		boolean checkMode = nodesCheckingState.get(tp).isSelected;
-		if (isEnabled())
-			checkMode = nodesCheckingState.get(tp).isSelected;
-		checkSubTree(tp, checkMode);
-		updatePredecessorsWithCheckMode(tp, checkMode);
-		// Firing the check change event
-		fireCheckChangeEvent(new CheckChangeEvent(new Object()));
-		// Repainting tree after the data structures were updated
+		this.nodesCheckingState.put(this.getPathForRow(row), new CheckedNode(true, false, false));
+
+//		TreePath tp = this.getPathForRow(row);
+//
+//		if (tp == null)
+//		{
+//			return;
+//		}
+//		boolean checkMode = nodesCheckingState.get(tp).isSelected;
+//		if (isEnabled())
+//			checkMode = nodesCheckingState.get(tp).isSelected;
+//		checkSubTree(tp, checkMode);
+//		updatePredecessorsWithCheckMode(tp, checkMode);
+//		// Firing the check change event
+//		fireCheckChangeEvent(new CheckChangeEvent(new Object()));
+//		// Repainting tree after the data structures were updated
 		selfPointer.repaint();
-    }
+	}
 
 	// Overriding cell renderer by a class that ignores the original "selection"
 	// mechanism
@@ -333,6 +338,28 @@ public class JCheckBoxTree extends JTree
 			checkedPaths.remove(tp);
 		}
 	}
+
+	public int SelectObject(String string, DefaultMutableTreeNode tree, int count)
+	{
+		DefaultMutableTreeNode a = tree;
+		if (a.toString().equals(string))
+		{
+			this.setSelectionRow(count);
+			DefaultTreeModel as = new DefaultTreeModel(a);
+			JTree asdf= new JTree(as);
+			return count+asdf.getRowCount()-1;
+		}
+		else if(a.getChildCount()>0) {
+			for(int i=0;i<a.getChildCount(); i++) {
+				count=SelectObject(string,(DefaultMutableTreeNode)a.getChildAt(i),count+1);}
+			
+				
+		}
+		return count;
+	}
 	
+	public void clearSelections() {
+		this.resetCheckingState();
+	}
 
 }

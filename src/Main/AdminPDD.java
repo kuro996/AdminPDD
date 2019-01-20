@@ -4,9 +4,10 @@ package Main;
 import java.util.ArrayList;
 
 import DAOSQL.EquiposDAOSQL;
-import DAOSQL.GeneralSQL;
+import DAOSQL.FuncionDAOSQL;
 import DAOSQL.UsuariosDAOSQL;
 import DTO.Equipo;
+import DTO.Funcion;
 import DTO.Usuario;
 
 public class AdminPDD {
@@ -15,12 +16,13 @@ public class AdminPDD {
 	private UsuariosDAOSQL usu;
 	private EquiposDAOSQL equ;
 	private Usuario usulog;
-	private GeneralSQL gen;
+	private FuncionDAOSQL fun;
 	
 	public AdminPDD() {
 		this.logiado=false;
 		this.usu = new UsuariosDAOSQL();
 		this.equ= new EquiposDAOSQL();
+		this.fun=new FuncionDAOSQL();
 	}
 
 	public Usuario validarUsuario(String mail, String pass) {
@@ -28,7 +30,7 @@ public class AdminPDD {
 	}
 
 	public ArrayList<String> Permisos(String name) {
-		return gen.permisos(name, this.usulog.getId());
+		return fun.permisosS(name, this.usulog.getId());
 	}
 
 	public Usuario getUsulog() {
@@ -49,6 +51,17 @@ public class AdminPDD {
 	{
 		
 		return this.equ.readAll();
+	}
+
+	public ArrayList<Funcion> obtenerHijos(String string)
+	{
+		return fun.readAll(string);
+	}
+
+	public ArrayList<Funcion> obtenerPermisos(int id)
+	{
+		return fun.permisos("Principal", this.usulog.getId());
+		
 	}	
 	
 }

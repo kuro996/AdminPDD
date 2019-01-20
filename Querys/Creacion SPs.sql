@@ -35,17 +35,18 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS get_permisos;
 
 DELIMITER //
-CREATE PROCEDURE get_permisos(pantalla VARCHAR(255), usuario INT)
+CREATE PROCEDURE get_permisos(codigo VARCHAR(255), usuario INT)
 BEGIN
 
 DROP TABLE IF EXISTS Funciones;
-CREATE TEMPORARY TABLE Funciones (id INT,fun INT, codigo VARCHAR(255)); 
+CREATE TEMPORARY TABLE Funciones (id INT,fun INT, codigo VARCHAR(255),pantalla VARCHAR(100)); 
 
 SET @tipo_usu= (SELECT usu_tipo FROM wf_usuarios WHERE usu_id=usuario);
-SET @fun_id = (SELECT fun_id FROM wf_funciones WHERE fun_codigo=pantalla AND fun_baja=0);
+SET @fun_id = (SELECT fun_id FROM wf_funciones WHERE fun_codigo=codigo AND fun_baja=0);
+SET @pantalla = (SELECT fun_nombre FROM wf_funciones WHERE fun_codigo=codigo AND fun_baja=0);
 SET @count=0;
 
-INSERT INTO Funciones VALUES(@count,@fun_id,pantalla);
+INSERT INTO Funciones VALUES(@count,@fun_id,codigo,@pantalla);
 
 IF(@tipo_usu='A') THEN
 	WHILE @count <= (SELECT MAX(id) FROM Funciones) DO
@@ -53,7 +54,8 @@ IF(@tipo_usu='A') THEN
 		INSERT INTO Funciones 
 		SELECT (SELECT MAX(id) FROM Funciones)+ROW_NUMBER()OVER(ORDER BY (SELECT NULL)),
 			fun_id,
-			fun_codigo
+			fun_codigo,
+			fun_nombre
 		FROM wf_funciones 
 		WHERE fun_padre=(SELECT fun FROM Funciones WHERE id=@count) AND fun_baja=0;
 		
@@ -66,7 +68,8 @@ ELSE
 		INSERT INTO Funciones 
 		SELECT (SELECT MAX(id) FROM Funciones)+ ROW_NUMBER() OVER(ORDER BY (SELECT NULL)),
 			fun_id,
-			fun_codigo
+			fun_codigo,
+			fun_nombre
 		FROM wf_funciones 
 			INNER JOIN wf_asignaciones ON asi_fun=fun_id 
 			INNER JOIN wf_usuarios ON usu_id=asi_usu OR asi_equ IN (SELECT equ_id FROM wf_equipos INNER JOIN wf_miembros ON mie_equ=equ_id WHERE mie_usu=usu_id AND mie_baja=0 AND equ_baja=0)
@@ -77,7 +80,7 @@ ELSE
 	END WHILE;
 END IF;
 
-SELECT * FROM Funciones;
+SELECT * FROM Funciones ORDER BY fun DESC;
 DROP TABLE Funciones;
 
 END //
