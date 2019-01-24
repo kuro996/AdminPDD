@@ -20,6 +20,7 @@ import Componentes.JCheckBoxTree;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ListSelectionModel;
 
 public class frmPermisos extends JDialog{
 	private JTable tblAsig;
@@ -75,6 +76,7 @@ public class frmPermisos extends JDialog{
 		JScrollPane scrollPane = new JScrollPane();
 		
 		tblAsig = new JTable();
+		tblAsig.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(tblAsig);
 		
 		

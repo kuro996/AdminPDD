@@ -15,9 +15,9 @@ public class FuncionDAOSQL
 	private static final String update = "";
 	private static final String validar = "";
 	private static final String readAll = "SELECT fun_id,fun_nombre,fun_codigo from wf_funciones WHERE fun_padre=(SELECT fun_id from wf_funciones WHERE fun_codigo=?);";
-	private static final String permisos = "CALL get_permisos(?,?);";
+	private static final String permisos = "CALL get_permisos(?,?,?);";
 
-	public static ArrayList<Funcion> permisos(String pantalla, int usuario)
+	public static ArrayList<Funcion> permisos(String pantalla, int usuario, int equipo)
 	{
 		PreparedStatement statement;
 		ResultSet resultSet; // Guarda el resultado de la query
@@ -28,6 +28,7 @@ public class FuncionDAOSQL
 			statement = conexion.getSQLConexion().prepareStatement(permisos);
 			statement.setString(1, pantalla);
 			statement.setInt(2, usuario);
+			statement.setInt(3, equipo);
 			resultSet = statement.executeQuery();
 
 			while (resultSet.next())
@@ -55,6 +56,8 @@ public class FuncionDAOSQL
 			statement = conexion.getSQLConexion().prepareStatement(permisos);
 			statement.setString(1, pantalla);
 			statement.setInt(2, usuario);
+			statement.setInt(3, 0);
+			
 			resultSet = statement.executeQuery();
 
 			while (resultSet.next())

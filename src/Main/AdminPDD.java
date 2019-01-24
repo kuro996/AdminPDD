@@ -58,9 +58,9 @@ public class AdminPDD {
 		return fun.readAll(string);
 	}
 
-	public ArrayList<Funcion> obtenerPermisos(int id)
+	public ArrayList<Funcion> obtenerPermisos(int idu, int idq)
 	{
-		return fun.permisos("Principal", this.usulog.getId());
+		return fun.permisos("Principal", idu, idq );
 		
 	}	
 	

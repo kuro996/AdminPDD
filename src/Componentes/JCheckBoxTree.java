@@ -31,6 +31,7 @@ public class JCheckBoxTree extends JTree
 	private static final long serialVersionUID = -4194122328392241790L;
 
 	JCheckBoxTree selfPointer = this;
+	private boolean selectChilds=false;
 
 	private class CheckedNode
 	{
@@ -53,6 +54,14 @@ public class JCheckBoxTree extends JTree
 	// Defining a new event type for the checking mechanism and preparing
 	// event-handling mechanism
 	protected EventListenerList listenerList = new EventListenerList();
+	
+	public void setSelectChilds(boolean set) {
+		this.selectChilds=set;
+	}
+	
+	public boolean getSelectChilds() {
+		return this.selectChilds;
+	}
 
 	public class CheckChangeEvent extends EventObject
 	{
@@ -142,27 +151,28 @@ public class JCheckBoxTree extends JTree
 	@Override
 	public void setSelectionRow(int row)
 	{
-		if(this.nodesCheckingState.get(this.getPathForRow(row)).isSelected) return;
+		if (this.nodesCheckingState.get(this.getPathForRow(row)).isSelected)
+			return;
 		for (int i = 0; i < this.getRowCount(); i++)
 		{
 			this.expandRow(i);
 		}
 		this.nodesCheckingState.put(this.getPathForRow(row), new CheckedNode(true, false, false));
 
-//		TreePath tp = this.getPathForRow(row);
-//
-//		if (tp == null)
-//		{
-//			return;
-//		}
-//		boolean checkMode = nodesCheckingState.get(tp).isSelected;
-//		if (isEnabled())
-//			checkMode = nodesCheckingState.get(tp).isSelected;
-//		checkSubTree(tp, checkMode);
-//		updatePredecessorsWithCheckMode(tp, checkMode);
-//		// Firing the check change event
-//		fireCheckChangeEvent(new CheckChangeEvent(new Object()));
-//		// Repainting tree after the data structures were updated
+		// TreePath tp = this.getPathForRow(row);
+		//
+		// if (tp == null)
+		// {
+		// return;
+		// }
+		// boolean checkMode = nodesCheckingState.get(tp).isSelected;
+		// if (isEnabled())
+		// checkMode = nodesCheckingState.get(tp).isSelected;
+		// checkSubTree(tp, checkMode);
+		// updatePredecessorsWithCheckMode(tp, checkMode);
+		// // Firing the check change event
+		// fireCheckChangeEvent(new CheckChangeEvent(new Object()));
+		// // Repainting tree after the data structures were updated
 		selfPointer.repaint();
 	}
 
@@ -324,18 +334,21 @@ public class JCheckBoxTree extends JTree
 	{
 		CheckedNode cn = nodesCheckingState.get(tp);
 		cn.isSelected = check;
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode) tp.getLastPathComponent();
-		for (int i = 0; i < node.getChildCount(); i++)
+		if (selectChilds)
 		{
-			checkSubTree(tp.pathByAddingChild(node.getChildAt(i)), check);
-		}
-		cn.allChildrenSelected = check;
-		if (check)
-		{
-			checkedPaths.add(tp);
-		} else
-		{
-			checkedPaths.remove(tp);
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode) tp.getLastPathComponent();
+			for (int i = 0; i < node.getChildCount(); i++)
+			{
+				checkSubTree(tp.pathByAddingChild(node.getChildAt(i)), check);
+			}
+			cn.allChildrenSelected = check;
+			if (check)
+			{
+				checkedPaths.add(tp);
+			} else
+			{
+				checkedPaths.remove(tp);
+			}
 		}
 	}
 
@@ -346,19 +359,21 @@ public class JCheckBoxTree extends JTree
 		{
 			this.setSelectionRow(count);
 			DefaultTreeModel as = new DefaultTreeModel(a);
-			JTree asdf= new JTree(as);
-			return count+asdf.getRowCount()-1;
-		}
-		else if(a.getChildCount()>0) {
-			for(int i=0;i<a.getChildCount(); i++) {
-				count=SelectObject(string,(DefaultMutableTreeNode)a.getChildAt(i),count+1);}
-			
-				
+			JTree asdf = new JTree(as);
+			return count + asdf.getRowCount() - 1;
+		} else if (a.getChildCount() > 0)
+		{
+			for (int i = 0; i < a.getChildCount(); i++)
+			{
+				count = SelectObject(string, (DefaultMutableTreeNode) a.getChildAt(i), count + 1);
+			}
+
 		}
 		return count;
 	}
-	
-	public void clearSelections() {
+
+	public void clearSelections()
+	{
 		this.resetCheckingState();
 	}
 
