@@ -12,6 +12,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 import DTO.Equipo;
 import DTO.Funcion;
@@ -34,6 +35,7 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 		this.modelo = modelo;
 		this.ventana.getArbPermisos().addMouseListener(this);
 		this.ventana.getBtnEditar().addActionListener(this);
+		this.ventana.getBtnCancelar().addActionListener(this);
 		this.ventana.getRdbtnUsuarios().addActionListener(this);
 		this.ventana.getRdbtnEquipos().addActionListener(this);
 		this.ventana.getTblAsig().addMouseListener(this);
@@ -91,8 +93,8 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 
 	private void llenarArbol()
 	{
-		DefaultMutableTreeNode asd = new DefaultMutableTreeNode("Principal");
-		asd = llenarNodo(asd, new Funcion(0, "Principal", "Principal"));
+		DefaultMutableTreeNode asd = new DefaultMutableTreeNode(new Funcion(1, "Principal", "Principal"));
+		asd = llenarNodo(asd, new Funcion(1, "Principal", "Principal"));
 		DefaultTreeModel as = new DefaultTreeModel(asd);
 		this.ventana.getArbPermisos().setModel(as);
 		for (int i = 0; i < this.ventana.getArbPermisos().getRowCount(); i++)
@@ -135,6 +137,8 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 			} else if (this.ventana.getBtnEditar().getText().equals("Editar"))
 			{
 				this.ventana.getBtnEditar().setText("Aceptar");
+				this.ventana.getBtnCancelar().setVisible(true);
+				this.ventana.getArbPermisos().setSelectChilds(true);
 				this.ventana.getTblAsig().setEnabled(false);
 				this.ventana.getRdbtnEquipos().setEnabled(false);
 				this.ventana.getRdbtnUsuarios().setEnabled(false);
@@ -142,7 +146,18 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 
 			} else
 			{
+				String ids = "";
+				for(TreePath i : this.ventana.getArbPermisos().getCheckedPaths()) {
+					DefaultMutableTreeNode nod = this.ventana.getArbPermisos().getNode(i.getLastPathComponent().toString(), (DefaultMutableTreeNode)this.ventana.getArbPermisos().getModel().getRoot());
+					Funcion fun=(Funcion)nod.getUserObject();
+					ids=fun.getFun()+","+ids;
+					
+				}
+				int row = this.ventana.getTblAsig().getSelectedRow();
+				this.modelo.darPermisos(this.usuarios.get(row).getId(),ids);
 				this.ventana.getBtnEditar().setText("Editar");
+				this.ventana.getBtnCancelar().setVisible(false);
+				this.ventana.getArbPermisos().setSelectChilds(false);
 				this.ventana.getArbPermisos().setEnabled(false);
 				this.ventana.getTblAsig().setEnabled(true);
 				this.ventana.getRdbtnEquipos().setEnabled(true);
@@ -150,7 +165,22 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 				this.ventana.getArbPermisos().setEditable(false);
 
 			}
-		} else if (e.getSource() == this.ventana.getRdbtnUsuarios() || e.getSource() == this.ventana.getRdbtnEquipos())
+		}else if(e.getSource()==this.ventana.getBtnCancelar()){
+			
+			this.ventana.getBtnEditar().setText("Editar");
+			this.ventana.getBtnCancelar().setVisible(false);
+			this.ventana.getArbPermisos().setSelectChilds(false);
+			this.ventana.getArbPermisos().setEnabled(false);
+			this.ventana.getTblAsig().setEnabled(true);
+			this.ventana.getRdbtnEquipos().setEnabled(true);
+			this.ventana.getRdbtnUsuarios().setEnabled(true);
+			this.ventana.getArbPermisos().setEditable(false);
+			
+			this.ventana.getTblAsig().clearSelection();
+			this.ventana.getArbPermisos().clearSelections();
+			
+		}
+		else if (e.getSource() == this.ventana.getRdbtnUsuarios() || e.getSource() == this.ventana.getRdbtnEquipos())
 		{
 			llenarTablas();
 		}
@@ -159,7 +189,7 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		if (e.getSource() == this.ventana.getTblAsig())
+		if (e.getSource() == this.ventana.getTblAsig() && this.ventana.getTblAsig().isEnabled())
 		{
 			this.ventana.getArbPermisos().clearSelections();
 			int row = this.ventana.getTblAsig().getSelectedRow();

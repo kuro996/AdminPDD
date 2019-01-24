@@ -10,11 +10,11 @@ import DTO.Funcion;
 
 public class FuncionDAOSQL
 {
-	private static final String insert = "";
+	private static final String insert = "CALL dar_permisos(?,?);";
 	private static final String delete = "";
 	private static final String update = "";
 	private static final String validar = "";
-	private static final String readAll = "SELECT fun_id,fun_nombre,fun_codigo from wf_funciones WHERE fun_padre=(SELECT fun_id from wf_funciones WHERE fun_codigo=?);";
+	private static final String readAll = "CALL permismos_x_pantalla(?);";
 	private static final String permisos = "CALL get_permisos(?,?,?);";
 
 	public static ArrayList<Funcion> permisos(String pantalla, int usuario, int equipo)
@@ -97,6 +97,28 @@ public class FuncionDAOSQL
 
 		conexion.cerrarConexion();
 		return resultados;
+	}
+
+	public void darPermisos(int id, String ids)
+	{
+		PreparedStatement statement;
+		ResultSet resultSet; // Guarda el resultado de la query
+		Conexion conexion = Conexion.getConexion();
+		ArrayList<Funcion> resultados = new ArrayList<Funcion>();
+		try
+		{
+			statement = conexion.getSQLConexion().prepareStatement(insert);
+			statement.setInt(1, id);
+			statement.setString(2, ids);
+			resultSet = statement.executeQuery();
+			
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+
+		conexion.cerrarConexion();
+		
 	}
 
 }

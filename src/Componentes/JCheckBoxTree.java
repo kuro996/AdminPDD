@@ -31,7 +31,7 @@ public class JCheckBoxTree extends JTree
 	private static final long serialVersionUID = -4194122328392241790L;
 
 	JCheckBoxTree selfPointer = this;
-	private boolean selectChilds=false;
+	private boolean selectChilds = false;
 
 	private class CheckedNode
 	{
@@ -54,12 +54,14 @@ public class JCheckBoxTree extends JTree
 	// Defining a new event type for the checking mechanism and preparing
 	// event-handling mechanism
 	protected EventListenerList listenerList = new EventListenerList();
-	
-	public void setSelectChilds(boolean set) {
-		this.selectChilds=set;
+
+	public void setSelectChilds(boolean set)
+	{
+		this.selectChilds = set;
 	}
-	
-	public boolean getSelectChilds() {
+
+	public boolean getSelectChilds()
+	{
 		return this.selectChilds;
 	}
 
@@ -158,6 +160,7 @@ public class JCheckBoxTree extends JTree
 			this.expandRow(i);
 		}
 		this.nodesCheckingState.put(this.getPathForRow(row), new CheckedNode(true, false, false));
+		this.checkedPaths.add(this.getPathForRow(row));
 
 		// TreePath tp = this.getPathForRow(row);
 		//
@@ -292,6 +295,8 @@ public class JCheckBoxTree extends JTree
 	// When a node is checked/unchecked, updating the states of the predecessors
 	protected void updatePredecessorsWithCheckMode(TreePath tp, boolean check)
 	{
+		if (!isEnabled())
+			return;
 		TreePath parentPath = tp.getParentPath();
 		// If it is the root, stop the recursive calls and return
 		if (parentPath == null)
@@ -370,6 +375,28 @@ public class JCheckBoxTree extends JTree
 
 		}
 		return count;
+	}
+
+	public DefaultMutableTreeNode getNode(String string, DefaultMutableTreeNode tree)
+	{
+		DefaultMutableTreeNode a = null;
+		DefaultMutableTreeNode b;
+		TreeNode t[]=tree.getPath();
+		if (t[t.length-1].toString().equals(string))
+		{
+			return tree;
+		} else if (tree.getChildCount() > 0)
+		{
+			for (int i = 0; i < tree.getChildCount(); i++)
+			{
+				b=getNode(string, (DefaultMutableTreeNode) tree.getChildAt(i));
+				if(b!=null) {
+					a=b;
+				}
+			}
+			return a;
+		}
+		return null;
 	}
 
 	public void clearSelections()

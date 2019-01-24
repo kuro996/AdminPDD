@@ -14,7 +14,7 @@ public class EquiposDAOSQL
 
 	private static final String insert = "";
 	private static final String delete = "";
-	private static final String readall = "Select * from wf_equipos where equ_baja=0";
+	private static final String readall = "CALL get_equipos();";
 	private static final String update = "";
 	private static final String validar="";
 	

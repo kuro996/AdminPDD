@@ -12,7 +12,7 @@ public class UsuariosDAOSQL {
 	
 	private static final String insert = "";
 	private static final String delete = "";
-	private static final String readall = "Select * from wf_usuarios where usu_baja=0";
+	private static final String readall = "CALL get_usuarios();";
 	private static final String update = "";
 	private static final String validar="CALL validar_usu(?,?);";
 	

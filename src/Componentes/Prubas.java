@@ -1,20 +1,21 @@
 package Componentes;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTree;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 
 public class Prubas extends JFrame
 {
@@ -54,19 +55,29 @@ public class Prubas extends JFrame
 		setContentPane(contentPane);
 		
 		JCheckBoxTree tree = new JCheckBoxTree();
+		tree.setSelectChilds(true);
 				
 				JButton btnNewButton = new JButton("New button");
 				btnNewButton.addActionListener(new ActionListener() {
+					
 					public void actionPerformed(ActionEvent arg0) {
-						tree.setSelectChilds(!tree.getSelectChilds());
+						DefaultMutableTreeNode prb=(DefaultMutableTreeNode) tree.getModel().getRoot();
+						DefaultMutableTreeNode as = tree.getNode("colors",(DefaultMutableTreeNode)prb);
+						System.out.println(as.getUserObject());
+						
 					}
 				});
+				
+				CLabel lblNewLabel = new CLabel();
+				
 				GroupLayout gl_contentPane = new GroupLayout(contentPane);
 				gl_contentPane.setHorizontalGroup(
-					gl_contentPane.createParallelGroup(Alignment.LEADING)
+					gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(tree, GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-							.addContainerGap(169, Short.MAX_VALUE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(22)
+							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
 							.addComponent(btnNewButton)
 							.addGap(166))
 				);
@@ -74,10 +85,21 @@ public class Prubas extends JFrame
 					gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addComponent(tree, GroupLayout.PREFERRED_SIZE, 354, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-							.addComponent(btnNewButton)
-							.addGap(26))
+							.addPreferredGap(ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+									.addComponent(btnNewButton)
+									.addGap(26))
+								.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+									.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 69, GroupLayout.PREFERRED_SIZE)
+									.addContainerGap())))
 				);
+				
+				
+				Image img= new ImageIcon("C:\\Users\\Leandro Iba\u00F1ez\\Pictures\\Creaciones\\Carpetas\\BAKE.png").getImage();
+				
+				ImageIcon img2=new ImageIcon(img.getScaledInstance(lblNewLabel.getWidth(), lblNewLabel.getHeight(), Image.SCALE_SMOOTH));
+				lblNewLabel.setIcon(img2);
 		contentPane.setLayout(gl_contentPane);
 	}
 }

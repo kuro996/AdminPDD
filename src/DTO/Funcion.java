@@ -8,14 +8,13 @@ public class Funcion
 	
 	public Funcion(int id, String nombre, String codigo)
 	{
-		this.fun = fun;
+		this.fun = id;
 		this.nombre = nombre;
 		this.codigo=codigo;
 	}
 
 		public Funcion(String string)
 	{
-			this.fun = 0;
 			this.nombre = "";
 			this.codigo=string;
 	}

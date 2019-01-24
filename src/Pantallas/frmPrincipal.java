@@ -20,7 +20,7 @@ public class frmPrincipal extends JFrame{
 	private JMenuItem itmSalir;
 	private JMenu mnArchivo;
 	private JMenu mnSeguridad;
-	private JMenuBar menuBar;
+	private JMenuBar menuSup;
 	private JMenuItem itmPermisosPorUsuarios;
 	
 	public frmPrincipal() {
@@ -41,13 +41,13 @@ public class frmPrincipal extends JFrame{
 		);
 		getContentPane().setLayout(groupLayout);
 		
-		menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		menuSup = new JMenuBar();
+		setJMenuBar(menuSup);
 		
 		mnArchivo = new JMenu("Archivo");
 		mnArchivo.setToolTipText("");
 		mnArchivo.setName("");
-		menuBar.add(mnArchivo);
+		menuSup.add(mnArchivo);
 		
 		itmCerrarSesion = new JMenuItem("Cerrar Sesion");
 		mnArchivo.add(itmCerrarSesion);
@@ -56,7 +56,7 @@ public class frmPrincipal extends JFrame{
 		mnArchivo.add(itmSalir);
 		
 		mnSeguridad = new JMenu("Seguridad");
-		menuBar.add(mnSeguridad);
+		menuSup.add(mnSeguridad);
 		
 		itmPermisosPorUsuarios = new JMenuItem("Permisos");
 		mnSeguridad.add(itmPermisosPorUsuarios);
@@ -80,12 +80,9 @@ public class frmPrincipal extends JFrame{
 		this.mnSeguridad = Seguridad;
 	}
 
-	public JMenuBar getMenuBar() {
-		return menuBar;
-	}
 
 	public void setMenuBar(JMenuBar menuBar) {
-		this.menuBar = menuBar;
+		this.menuSup = menuBar;
 	}
 
 	public JMenuItem getItmCerrarSesion() {

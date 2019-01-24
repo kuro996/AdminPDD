@@ -35,7 +35,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS get_permisos;
 
 DELIMITER //
-CREATE PROCEDURE get_permisos(codigo VARCHAR(255), usuario INT)
+CREATE PROCEDURE get_permisos(codigo VARCHAR(255), usuario INT,equ INT)
 BEGIN
 
 DROP TABLE IF EXISTS Funciones;
@@ -63,7 +63,7 @@ IF(@tipo_usu='A') THEN
 		
 	END WHILE;
 ELSE
-	WHILE @count <= (SELECT MAX(id) FROM Funciones) DO
+	WHILE @count <= (SELECT MAX(id) FROM Funciones) AND equ=0 DO
 		
 		INSERT INTO Funciones 
 		SELECT (SELECT MAX(id) FROM Funciones)+ ROW_NUMBER() OVER(ORDER BY (SELECT NULL)),
@@ -80,8 +80,64 @@ ELSE
 	END WHILE;
 END IF;
 
+IF equ<>0 THEN
+
+	WHILE @count <= (SELECT MAX(id) FROM Funciones) DO
+		
+		INSERT INTO Funciones 
+		SELECT (SELECT MAX(id) FROM Funciones)+ ROW_NUMBER() OVER(ORDER BY (SELECT NULL)),
+			fun_id,
+			fun_codigo,
+			fun_nombre
+		FROM wf_funciones 
+			INNER JOIN wf_asignaciones ON asi_fun=fun_id 
+			INNER JOIN wf_equipos ON equ_id=asi_equ
+		WHERE fun_padre=(SELECT fun FROM Funciones WHERE id=@count) AND equ_id=equ AND asi_baja=0 AND equ_baja=0 AND fun_baja=0;
+		
+		SET @count=@count+1;
+		
+	END WHILE;
+
+END IF;
+
 SELECT * FROM Funciones ORDER BY fun DESC;
 DROP TABLE Funciones;
+
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS permismos_x_pantalla;
+
+DELIMITER //
+CREATE PROCEDURE permismos_x_pantalla(codigo VARCHAR(255))
+BEGIN
+
+SELECT fun_id,fun_nombre,fun_codigo from wf_funciones WHERE fun_padre=(SELECT fun_id from wf_funciones WHERE fun_codigo=codigo);
+
+
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS get_equipos;
+
+DELIMITER //
+CREATE PROCEDURE get_equipos()
+BEGIN
+
+Select * from wf_equipos where equ_baja=0;
+
+END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS get_usuarios;
+
+DELIMITER //
+CREATE PROCEDURE get_usuarios()
+BEGIN
+
+Select * from wf_usuarios where usu_baja=0;
 
 END //
 DELIMITER ;

@@ -62,6 +62,12 @@ public class AdminPDD {
 	{
 		return fun.permisos("Principal", idu, idq );
 		
+	}
+
+	public void darPermisos(int id, String ids)
+	{
+		this.fun.darPermisos(id,ids);
+		
 	}	
 	
 }
