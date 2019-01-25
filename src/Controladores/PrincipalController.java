@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import Main.AdminPDD;
 import Main.Main;
+import Pantallas.frmEquipos;
 import Pantallas.frmPermisos;
 import Pantallas.frmPrincipal;
 import Pantallas.frmUsuarios;
@@ -79,6 +80,9 @@ public class PrincipalController implements ActionListener, WindowListener
 		}else if(e.getSource()==this.ventana.getItmUsuarios()) {
 			UsuariosController usu= new UsuariosController(new frmUsuarios(),this.modelo);
 			usu.inicializar();
+		}else if(e.getSource()==this.ventana.getItmEquipos()) {
+			EquiposController equ= new EquiposController(new frmEquipos(),this.modelo);
+			equ.inicializar();
 		}
 
 	}
