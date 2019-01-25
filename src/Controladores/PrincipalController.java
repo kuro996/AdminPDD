@@ -1,6 +1,7 @@
 package Controladores;
 
 import java.awt.AWTEvent;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -8,6 +9,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import Main.AdminPDD;
@@ -43,6 +45,12 @@ public class PrincipalController implements ActionListener, WindowListener
 
 	public void inicializar()
 	{
+		Image img= this.modelo.getUsulog().getImagen().getImage();
+		ImageIcon img2=new ImageIcon(img.getScaledInstance(this.ventana.getLblFoto().getWidth()-10, this.ventana.getLblFoto().getHeight()-10, Image.SCALE_FAST));
+		this.ventana.getLblFoto().setIcon(img2);
+
+		this.ventana.getLblNombre().setText(this.modelo.getUsulog().getApellido()+" ,"+this.modelo.getUsulog().getNombre());
+		
 		this.ventana.setVisible(true);
 	}
 

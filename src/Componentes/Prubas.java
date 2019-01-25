@@ -61,9 +61,7 @@ public class Prubas extends JFrame
 				btnNewButton.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent arg0) {
-						DefaultMutableTreeNode prb=(DefaultMutableTreeNode) tree.getModel().getRoot();
-						DefaultMutableTreeNode as = tree.getNode("colors",(DefaultMutableTreeNode)prb);
-						System.out.println(as.getUserObject());
+						tree.clearSelection();
 						
 					}
 				});

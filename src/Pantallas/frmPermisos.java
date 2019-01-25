@@ -8,19 +8,16 @@ import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
-import Componentes.JCheckBoxTree;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
+
+import Componentes.CLabel;
+import Componentes.JCheckBoxTree;
 
 public class frmPermisos extends JDialog{
 	private JTable tblAsig;
@@ -31,8 +28,11 @@ public class frmPermisos extends JDialog{
 	private JRadioButton rdbtnEquipos;
 	private JScrollPane scrollPane_1;
 	private ButtonGroup bottonGroup;
+	private CLabel lblFoto;
 	
 	
+
+
 	public frmPermisos() {
 		setMinimumSize(new Dimension(400, 500));
 		setTitle("Permisos por Usuario");
@@ -40,7 +40,7 @@ public class frmPermisos extends JDialog{
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		
-		setBounds(100, 100, 410, 550);
+		setBounds(100, 100, 411, 654);
 		
 		btnEditar = new JButton("Editar");
 		
@@ -50,27 +50,42 @@ public class frmPermisos extends JDialog{
 		JPanel panelArbol = new JPanel();
 		
 		JPanel panelTbl = new JPanel();
+		
+		lblFoto = new CLabel();
+		lblFoto.setText("");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(panelTbl, GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addContainerGap()
+					.addComponent(panelArbol, GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(1)
+					.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(238))
-				.addComponent(panelArbol, GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
-				.addComponent(panelTbl, GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+					.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+					.addGap(132)
+					.addComponent(lblFoto, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(33)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnCancelar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addGap(26))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblFoto, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)))
 					.addComponent(panelArbol, GroupLayout.PREFERRED_SIZE, 292, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelTbl, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(panelTbl, GroupLayout.PREFERRED_SIZE, 247, Short.MAX_VALUE))
 		);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -97,22 +112,23 @@ public class frmPermisos extends JDialog{
 		GroupLayout gl_panelTbl = new GroupLayout(panelTbl);
 		gl_panelTbl.setHorizontalGroup(
 			gl_panelTbl.createParallelGroup(Alignment.LEADING)
-				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
+				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
 				.addGroup(gl_panelTbl.createSequentialGroup()
-					.addGap(49)
-					.addComponent(rdbtnUsuarios, GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-					.addGap(112)
-					.addComponent(rdbtnEquipos, GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
-					.addGap(89))
+					.addGap(50)
+					.addComponent(rdbtnUsuarios, GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+					.addGap(106)
+					.addComponent(rdbtnEquipos, GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+					.addGap(94))
 		);
 		gl_panelTbl.setVerticalGroup(
-			gl_panelTbl.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panelTbl.createSequentialGroup()
+			gl_panelTbl.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panelTbl.createSequentialGroup()
+					.addGap(53)
 					.addGroup(gl_panelTbl.createParallelGroup(Alignment.BASELINE)
 						.addComponent(rdbtnUsuarios, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(rdbtnEquipos, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addGap(5)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+					.addGap(18)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE))
 		);
 		panelTbl.setLayout(gl_panelTbl);
 		GridBagLayout gbl_panelArbol = new GridBagLayout();
@@ -224,5 +240,15 @@ public class frmPermisos extends JDialog{
 		this.bottonGroup = bottonGroup;
 	}
 	
+	public CLabel getLblFoto()
+	{
+		return lblFoto;
+	}
 	
+	
+	public void setLblFoto(CLabel lblFoto)
+	{
+		this.lblFoto = lblFoto;
+	}
+
 }

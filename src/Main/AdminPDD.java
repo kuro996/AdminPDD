@@ -64,9 +64,9 @@ public class AdminPDD {
 		
 	}
 
-	public void darPermisos(int id, String ids)
+	public void darPermisos(int usu, int equ, String ids)
 	{
-		this.fun.darPermisos(id,ids);
+		this.fun.darPermisos(usu,equ,ids);
 		
 	}	
 	

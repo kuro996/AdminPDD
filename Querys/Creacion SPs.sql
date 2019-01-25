@@ -11,13 +11,14 @@ SELECT * FROM wf_usuarios WHERE usu_login=login AND usu_password=pass AND usu_ba
 END //
 DELIMITER ;
 
-DROP FUNCTION IF EXISTS strSplit;
+DROP PROCEDURE IF EXISTS strSplit;
 DELIMITER //
-CREATE FUNCTION strSplit (cadena VARCHAR(255), delimitador VARCHAR(12)) RETURNS VARCHAR(255) 
+CREATE PROCEDURE strSplit (cadena VARCHAR(255), delimitador VARCHAR(12))
 BEGIN
 	
+	DROP TABLE IF EXISTS resultados;
 	CREATE TEMPORARY TABLE resultados (item VARCHAR(500));
-	
+		
 	SET @pocision=1;
 	
 	WHILE(SELECT ltrim(replace(substring(substring_index(cadena, delimitador, @pocision), length(substring_index(cadena, delimitador, @pocision - 1)) + 1), delimitador, ''))) <> '' DO
@@ -28,7 +29,6 @@ BEGIN
 	
 	END WHILE;
 	
-	RETURN 1;
 END //
 DELIMITER ;
 
@@ -138,6 +138,37 @@ CREATE PROCEDURE get_usuarios()
 BEGIN
 
 Select * from wf_usuarios where usu_baja=0;
+
+END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS dar_permisos;
+
+DELIMITER //
+CREATE PROCEDURE dar_permisos(usu int, equ int,ids VARCHAR(255))
+BEGIN
+
+CALL strSplit(ids, ',');
+
+IF usu <> 0 THEN
+	
+	UPDATE wf_asignaciones SET asi_baja=1 WHERE asi_fun NOT IN (SELECT item FROM resultados) AND asi_usu=usu; 
+	
+	DELETE FROM resultados WHERE item IN (SELECT asi_fun FROM wf_asignaciones WHERE asi_baja=0 AND asi_usu=usu);
+	
+	INSERT INTO wf_asignaciones (`asi_fun`, `asi_usu`,`asi_equ`) SELECT item,usu,equ FROM resultados;
+
+END IF;
+
+IF equ <> 0 THEN
+
+	UPDATE wf_asignaciones SET asi_baja=1 WHERE asi_fun NOT IN (SELECT item FROM resultados) AND asi_equ=equ; 
+	
+	DELETE FROM resultados WHERE item IN (SELECT asi_fun FROM wf_asignaciones WHERE asi_baja=0 AND asi_equ=equ);
+	
+	INSERT INTO wf_asignaciones (`asi_fun`, `asi_usu`,`asi_equ`) SELECT item,usu,equ FROM resultados;
+
+END IF;
 
 END //
 DELIMITER ;

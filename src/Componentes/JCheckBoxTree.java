@@ -398,10 +398,15 @@ public class JCheckBoxTree extends JTree
 		}
 		return null;
 	}
-
-	public void clearSelections()
+	
+	@Override
+	public void clearSelection()
 	{
-		this.resetCheckingState();
+		for (int i = 0; i < this.getRowCount(); i++)
+		{
+			this.nodesCheckingState.get(this.getPathForRow(i)).isSelected=false;
+			this.repaint();
+		}
 	}
 
 }

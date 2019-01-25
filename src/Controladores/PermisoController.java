@@ -1,11 +1,13 @@
 package Controladores;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -14,6 +16,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import DAOSQL.UsuariosDAOSQL;
 import DTO.Equipo;
 import DTO.Funcion;
 import DTO.Usuario;
@@ -154,7 +157,8 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 					
 				}
 				int row = this.ventana.getTblAsig().getSelectedRow();
-				this.modelo.darPermisos(this.usuarios.get(row).getId(),ids);
+				this.modelo.darPermisos((this.ventana.getRdbtnUsuarios().isSelected()) ? this.usuarios.get(row).getId() : 0,
+										(this.ventana.getRdbtnEquipos().isSelected()) ? this.equipos.get(row).getId() : 0, ids);
 				this.ventana.getBtnEditar().setText("Editar");
 				this.ventana.getBtnCancelar().setVisible(false);
 				this.ventana.getArbPermisos().setSelectChilds(false);
@@ -177,11 +181,13 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 			this.ventana.getArbPermisos().setEditable(false);
 			
 			this.ventana.getTblAsig().clearSelection();
-			this.ventana.getArbPermisos().clearSelections();
+			this.ventana.getArbPermisos().clearSelection();
 			
 		}
 		else if (e.getSource() == this.ventana.getRdbtnUsuarios() || e.getSource() == this.ventana.getRdbtnEquipos())
 		{
+			this.ventana.getTblAsig().clearSelection();
+			this.ventana.getArbPermisos().clearSelection();
 			llenarTablas();
 		}
 	}
@@ -191,7 +197,7 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 	{
 		if (e.getSource() == this.ventana.getTblAsig() && this.ventana.getTblAsig().isEnabled())
 		{
-			this.ventana.getArbPermisos().clearSelections();
+			this.ventana.getArbPermisos().clearSelection();
 			int row = this.ventana.getTblAsig().getSelectedRow();
 			if (row >= 0)
 			{
@@ -202,6 +208,13 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 						this.ventana.getArbPermisos().SelectObject(i.getNombre(),
 								(DefaultMutableTreeNode) this.ventana.getArbPermisos().getModel().getRoot(), 0);
 					}
+					
+					Image img= this.usuarios.get(row).getImagen().getImage();
+					
+					ImageIcon img2=new ImageIcon(img.getScaledInstance(this.ventana.getLblFoto().getWidth(), this.ventana.getLblFoto().getHeight(), Image.SCALE_SMOOTH));
+					
+					this.ventana.getLblFoto().setIcon(img2);
+					this.ventana.getLblFoto().repaint();
 				} else
 				{
 					for (Funcion i : modelo.obtenerPermisos(0,this.equipos.get(row).getId()))
@@ -212,10 +225,7 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 				}
 			}
 		}
-		else if (e.getSource()==this.ventana.getRdbtnEquipos() || e.getSource()==this.ventana.getRdbtnUsuarios()) {
-			this.ventana.getArbPermisos().clearSelections();
-			this.ventana.getTblAsig().clearSelection();
-		}
+		
 	}
 
 	@Override

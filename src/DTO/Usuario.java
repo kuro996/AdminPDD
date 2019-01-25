@@ -1,24 +1,29 @@
 package DTO;
 
+import javax.swing.ImageIcon;
+
 public class Usuario {
 	
 	private int id;
 	private String nombre;
 	private String apellido;
 	private String mail;
+	private ImageIcon imagen;
 	private String login;
 	private String tipo;
 	private String obs;
 	
-	public Usuario(int id, String nombre, String apellido, String login, String mail,String tipo, String obs) {
+	public Usuario(int id, String nombre, String apellido, String login, String mail,String tipo, String obs, ImageIcon img) {
 		this.id=id;
 		this.nombre=nombre;
 		this.apellido=apellido;
 		this.login=login;
 		this.mail=mail;
+		this.imagen=img;
 		this.tipo=tipo;
 		this.obs=obs;
 	}
+	
 
 	public String getTipo() {
 		return tipo;
@@ -72,8 +77,16 @@ public class Usuario {
 		return id;
 	}
 
-	public static void validar(String mail2, String pass) {
-		
+	public ImageIcon getImagen()
+	{
+		return imagen;
 	}
+
+	public void setImagen(ImageIcon imagen)
+	{
+		this.imagen = imagen;
+	}
+
+	
 
 }

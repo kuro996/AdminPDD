@@ -1,18 +1,18 @@
 package Pantallas;
 
-import java.awt.MenuBar;
 import java.awt.Toolkit;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import Componentes.CLabel;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
 
 public class frmPrincipal extends JFrame{
 	
@@ -22,6 +22,8 @@ public class frmPrincipal extends JFrame{
 	private JMenu mnSeguridad;
 	private JMenuBar menuSup;
 	private JMenuItem itmPermisosPorUsuarios;
+	private CLabel LblFoto;
+	private JLabel lblNombre;
 	
 	public frmPrincipal() {
 			
@@ -30,14 +32,30 @@ public class frmPrincipal extends JFrame{
 		
 		Toolkit t = Toolkit.getDefaultToolkit();
 		this.setBounds(0, 0, t.getScreenSize().width, t.getScreenSize().height);
+		
+		LblFoto = new CLabel();
+		LblFoto.setIconTextGap(0);
+		LblFoto.setVerticalTextPosition(SwingConstants.TOP);
+		LblFoto.setText("");
+		
+		lblNombre = new JLabel("");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 1584, Short.MAX_VALUE)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(1256)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
+						.addComponent(LblFoto, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 861, Short.MAX_VALUE)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addComponent(LblFoto, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblNombre)
+					.addContainerGap(613, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(groupLayout);
 		
@@ -115,6 +133,30 @@ public class frmPrincipal extends JFrame{
 
 	public void setItmPermisos(JMenuItem mntmPermisosPorUsuarios) {
 		this.itmPermisosPorUsuarios = mntmPermisosPorUsuarios;
+	}
+
+
+	public CLabel getLblFoto()
+	{
+		return LblFoto;
+	}
+
+
+	public void setLblFoto(CLabel lblFoto)
+	{
+		LblFoto = lblFoto;
+	}
+
+
+	public JLabel getLblNombre()
+	{
+		return lblNombre;
+	}
+
+
+	public void setLblNombre(JLabel lblNombre)
+	{
+		this.lblNombre = lblNombre;
 	}
 	
 	

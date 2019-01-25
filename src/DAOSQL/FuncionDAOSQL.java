@@ -10,12 +10,12 @@ import DTO.Funcion;
 
 public class FuncionDAOSQL
 {
-	private static final String insert = "CALL dar_permisos(?,?);";
+	private static final String insert = "CALL dar_permisos(?,?,?);";
 	private static final String delete = "";
 	private static final String update = "";
 	private static final String validar = "";
 	private static final String readAll = "CALL permismos_x_pantalla(?);";
-	private static final String permisos = "CALL get_permisos(?,?,?);";
+	private static final String permisos = "CALL get_permisos(?,?,?,?);";
 
 	public static ArrayList<Funcion> permisos(String pantalla, int usuario, int equipo)
 	{
@@ -29,6 +29,7 @@ public class FuncionDAOSQL
 			statement.setString(1, pantalla);
 			statement.setInt(2, usuario);
 			statement.setInt(3, equipo);
+			statement.setInt(4, 0);
 			resultSet = statement.executeQuery();
 
 			while (resultSet.next())
@@ -57,6 +58,7 @@ public class FuncionDAOSQL
 			statement.setString(1, pantalla);
 			statement.setInt(2, usuario);
 			statement.setInt(3, 0);
+			statement.setInt(4, 1);
 			
 			resultSet = statement.executeQuery();
 
@@ -99,7 +101,7 @@ public class FuncionDAOSQL
 		return resultados;
 	}
 
-	public void darPermisos(int id, String ids)
+	public void darPermisos(int usu, int equ, String ids)
 	{
 		PreparedStatement statement;
 		ResultSet resultSet; // Guarda el resultado de la query
@@ -108,8 +110,9 @@ public class FuncionDAOSQL
 		try
 		{
 			statement = conexion.getSQLConexion().prepareStatement(insert);
-			statement.setInt(1, id);
-			statement.setString(2, ids);
+			statement.setInt(1, usu);
+			statement.setInt(2, equ);
+			statement.setString(3, ids);
 			resultSet = statement.executeQuery();
 			
 		} catch (SQLException e)
