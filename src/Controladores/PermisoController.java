@@ -16,7 +16,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import DAOSQL.UsuariosDAOSQL;
 import DTO.Equipo;
 import DTO.Funcion;
 import DTO.Usuario;
@@ -222,6 +221,13 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 						this.ventana.getArbPermisos().SelectObject(i.getNombre(),
 								(DefaultMutableTreeNode) this.ventana.getArbPermisos().getModel().getRoot(), 0);
 					}
+					
+					Image img= new ImageIcon("avatar.jpg").getImage();
+					
+					ImageIcon img2=new ImageIcon(img.getScaledInstance(this.ventana.getLblFoto().getWidth(), this.ventana.getLblFoto().getHeight(), Image.SCALE_SMOOTH));
+					
+					this.ventana.getLblFoto().setIcon(img2);
+					this.ventana.getLblFoto().repaint();
 				}
 			}
 		}

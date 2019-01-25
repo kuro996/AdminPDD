@@ -61,7 +61,14 @@ public class Prubas extends JFrame
 				btnNewButton.addActionListener(new ActionListener() {
 					
 					public void actionPerformed(ActionEvent arg0) {
-						tree.clearSelection();
+						Runtime r = Runtime.getRuntime();
+						Process p = null;
+
+						try {
+							p = r.exec("explorer.exe /select,C:\\Users\\libanez\\Downloads\\dedsec.gif");
+						} catch (Exception e) {
+							System.out.println("Error al ejecutar");
+						}
 						
 					}
 				});

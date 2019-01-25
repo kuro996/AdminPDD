@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import Componentes.CLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
+import javax.swing.JPanel;
 
 public class frmPrincipal extends JFrame{
 	
@@ -21,42 +22,61 @@ public class frmPrincipal extends JFrame{
 	private JMenu mnArchivo;
 	private JMenu mnSeguridad;
 	private JMenuBar menuSup;
-	private JMenuItem itmPermisosPorUsuarios;
+	private JMenuItem itmPermisos;
 	private CLabel LblFoto;
-	private JLabel lblNombre;
+	private JPanel panel;
+	private JMenuItem itmUsuarios;
+	private JMenuItem itmEquipos;
+	private JMenu mnBackUpDatos;
+	private JMenuItem itmExportar;
+	private JMenuItem itmImportar;
 	
 	public frmPrincipal() {
 			
 		setTitle("Administracion PDD Jos\u00E9 C. Paz");
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setResizable(false);
 		
 		Toolkit t = Toolkit.getDefaultToolkit();
 		this.setBounds(0, 0, t.getScreenSize().width, t.getScreenSize().height);
 		
-		LblFoto = new CLabel();
-		LblFoto.setIconTextGap(0);
-		LblFoto.setVerticalTextPosition(SwingConstants.TOP);
-		LblFoto.setText("");
-		
-		lblNombre = new JLabel("");
+		panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(1256)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-						.addComponent(LblFoto, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE))
+					.addGap(1474)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addComponent(LblFoto, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblNombre)
-					.addContainerGap(613, Short.MAX_VALUE))
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(0)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+					.addGap(755))
 		);
+		
+		LblFoto = new CLabel();
+		LblFoto.setToolTipText("");
+		LblFoto.setVerticalAlignment(SwingConstants.BOTTOM);
+		LblFoto.setIconTextGap(0);
+		LblFoto.setVerticalTextPosition(SwingConstants.BOTTOM);
+		LblFoto.setText("");
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(3)
+					.addComponent(LblFoto, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addComponent(LblFoto, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+		);
+		panel.setLayout(gl_panel);
 		getContentPane().setLayout(groupLayout);
 		
 		menuSup = new JMenuBar();
@@ -70,14 +90,30 @@ public class frmPrincipal extends JFrame{
 		itmCerrarSesion = new JMenuItem("Cerrar Sesion");
 		mnArchivo.add(itmCerrarSesion);
 		
+		mnBackUpDatos = new JMenu("Back Up Datos");
+		mnArchivo.add(mnBackUpDatos);
+		
+		itmExportar = new JMenuItem("Exportar");
+		mnBackUpDatos.add(itmExportar);
+		
+		itmImportar = new JMenuItem("Importar");
+		mnBackUpDatos.add(itmImportar);
+		
 		itmSalir = new JMenuItem("Salir");
 		mnArchivo.add(itmSalir);
 		
 		mnSeguridad = new JMenu("Seguridad");
 		menuSup.add(mnSeguridad);
 		
-		itmPermisosPorUsuarios = new JMenuItem("Permisos");
-		mnSeguridad.add(itmPermisosPorUsuarios);
+		itmUsuarios = new JMenuItem("Usuarios");
+		mnSeguridad.add(itmUsuarios);
+		
+		itmEquipos = new JMenuItem("Equipos");
+		itmEquipos.setActionCommand("Equipos");
+		mnSeguridad.add(itmEquipos);
+		
+		itmPermisos = new JMenuItem("Permisos");
+		mnSeguridad.add(itmPermisos);
 				
 	}
 
@@ -128,11 +164,11 @@ public class frmPrincipal extends JFrame{
 	}
 
 	public JMenuItem getItmPermisos() {
-		return itmPermisosPorUsuarios;
+		return itmPermisos;
 	}
 
 	public void setItmPermisos(JMenuItem mntmPermisosPorUsuarios) {
-		this.itmPermisosPorUsuarios = mntmPermisosPorUsuarios;
+		this.itmPermisos = mntmPermisosPorUsuarios;
 	}
 
 
@@ -148,17 +184,29 @@ public class frmPrincipal extends JFrame{
 	}
 
 
-	public JLabel getLblNombre()
-	{
-		return lblNombre;
+	public JMenuItem getItmUsuarios() {
+		return itmUsuarios;
 	}
 
 
-	public void setLblNombre(JLabel lblNombre)
-	{
-		this.lblNombre = lblNombre;
+	public JMenuItem getItmEquipos() {
+		return itmEquipos;
 	}
-	
-	
+
+
+	public JMenuItem getItmExportar() {
+		return itmExportar;
+	}
+
+
+	public JMenuItem getItmImportar() {
+		return itmImportar;
+	}
+
+
+	public JMenu getMnBackUpDatos() {
+		return mnBackUpDatos;
+	}
+
 
 }

@@ -35,7 +35,7 @@ public class frmPermisos extends JDialog{
 
 	public frmPermisos() {
 		setMinimumSize(new Dimension(400, 500));
-		setTitle("Permisos por Usuario");
+		setTitle("Permisos");
 		setModal(true);
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

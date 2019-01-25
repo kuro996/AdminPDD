@@ -16,6 +16,7 @@ import Main.AdminPDD;
 import Main.Main;
 import Pantallas.frmPermisos;
 import Pantallas.frmPrincipal;
+import Pantallas.frmUsuarios;
 
 public class PrincipalController implements ActionListener, WindowListener
 {
@@ -31,6 +32,10 @@ public class PrincipalController implements ActionListener, WindowListener
 		this.ventana.getItmCerrarSesion().addActionListener(this);
 		this.ventana.getItmSalir().addActionListener(this);
 		this.ventana.getItmPermisos().addActionListener(this);
+		this.ventana.getItmUsuarios().addActionListener(this);
+		this.ventana.getItmEquipos().addActionListener(this);
+		this.ventana.getItmImportar().addActionListener(this);
+		this.ventana.getItmExportar().addActionListener(this);
 		this.ventana.addWindowListener(this);
 
 		this.verificarPermisos(admin);
@@ -41,15 +46,18 @@ public class PrincipalController implements ActionListener, WindowListener
 		ArrayList<String> per = this.modelo.Permisos(name);
 		this.ventana.getMnSeguridad().setVisible(per.contains((String) "Principal.Seguridad"));
 		this.ventana.getItmPermisos().setVisible(per.contains((String) "Principal.Seguridad.Permisos"));
+		this.ventana.getItmUsuarios().setVisible(per.contains((String)"Principal.Seguridad.Usuarios"));
+		this.ventana.getItmEquipos().setVisible(per.contains((String)"Principal.Seguridad.Equipos"));
+		this.ventana.getMnBackUpDatos().setVisible(per.contains((String)"Principal.BackUpDatos"));
 	}
 
 	public void inicializar()
 	{
 		Image img= this.modelo.getUsulog().getImagen().getImage();
-		ImageIcon img2=new ImageIcon(img.getScaledInstance(this.ventana.getLblFoto().getWidth()-10, this.ventana.getLblFoto().getHeight()-10, Image.SCALE_FAST));
+		ImageIcon img2=new ImageIcon(img.getScaledInstance(this.ventana.getLblFoto().getWidth(), this.ventana.getLblFoto().getHeight(), Image.SCALE_FAST));
 		this.ventana.getLblFoto().setIcon(img2);
 
-		this.ventana.getLblNombre().setText(this.modelo.getUsulog().getApellido()+" ,"+this.modelo.getUsulog().getNombre());
+		this.ventana.getLblFoto().setToolTipText(this.modelo.getUsulog().getApellido()+" ,"+this.modelo.getUsulog().getNombre());
 		
 		this.ventana.setVisible(true);
 	}
@@ -68,6 +76,9 @@ public class PrincipalController implements ActionListener, WindowListener
 		{
 			PermisoController per = new PermisoController(new frmPermisos(), this.modelo);
 			per.inicializar();
+		}else if(e.getSource()==this.ventana.getItmUsuarios()) {
+			UsuariosController usu= new UsuariosController(new frmUsuarios(),this.modelo);
+			usu.inicializar();
 		}
 
 	}
