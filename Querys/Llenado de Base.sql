@@ -19,6 +19,9 @@ INSERT INTO `adminpdd`.`wf_funciones` (`fun_padre`, `fun_nombre`, `fun_codigo`) 
 INSERT INTO `adminpdd`.`wf_funciones` (`fun_padre`, `fun_nombre`, `fun_codigo`) VALUES ('1', 'Seguridad', 'Principal.Seguridad');
 INSERT INTO `adminpdd`.`wf_funciones` (`fun_padre`, `fun_nombre`, `fun_codigo`) VALUES ('2','Permisos', 'Principal.Seguridad.Permisos');
 INSERT INTO `adminpdd`.`wf_funciones` (`fun_padre`, `fun_nombre`, `fun_codigo`) VALUES ('3', 'Editar Permisos', 'Permisos.editar');
+INSERT INTO `adminpdd`.`wf_funciones` (`fun_padre`, `fun_nombre`, `fun_codigo`) VALUES ('2', 'Usuarios', 'Principal.Seguridad.Usuarios');
+INSERT INTO `adminpdd`.`wf_funciones` (`fun_padre`, `fun_nombre`, `fun_codigo`) VALUES ('2', 'Equipos', 'Principal.Seguridad.Equipos');
+INSERT INTO `adminpdd`.`wf_funciones` (`fun_padre`, `fun_nombre`, `fun_codigo`) VALUES ('1', 'Back Up Datos', 'Principal.BackUpDatos');
 
 INSERT INTO `adminpdd`.`wf_miembros` ( `mie_usu`, `mie_equ`) VALUES ( '2', '1');
 
