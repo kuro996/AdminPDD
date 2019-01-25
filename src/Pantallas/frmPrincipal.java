@@ -31,7 +31,7 @@ public class frmPrincipal extends JFrame{
 	private JMenuItem itmExportar;
 	private JMenuItem itmImportar;
 	
-	public frmPrincipal() {
+	public frmPrincipal() { 
 			
 		setTitle("Administracion PDD Jos\u00E9 C. Paz");
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
