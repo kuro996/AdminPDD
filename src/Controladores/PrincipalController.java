@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 
 import Main.AdminPDD;
 import Main.Main;
+import Pantallas.frmBusquedaP;
 import Pantallas.frmEquipos;
 import Pantallas.frmPermisos;
 import Pantallas.frmPrincipal;
@@ -37,6 +38,7 @@ public class PrincipalController implements ActionListener, WindowListener
 		this.ventana.getItmEquipos().addActionListener(this);
 		this.ventana.getItmImportar().addActionListener(this);
 		this.ventana.getItmExportar().addActionListener(this);
+		this.ventana.getItmBusquedaP().addActionListener(this);
 		this.ventana.addWindowListener(this);
 
 		this.verificarPermisos(admin);
@@ -45,11 +47,15 @@ public class PrincipalController implements ActionListener, WindowListener
 	private void verificarPermisos(AdminPDD admin)
 	{
 		ArrayList<String> per = this.modelo.Permisos(name);
+		this.ventana.getMnBackUpDatos().setVisible(per.contains((String)"Principal.BackUpDatos"));
+		
 		this.ventana.getMnSeguridad().setVisible(per.contains((String) "Principal.Seguridad"));
 		this.ventana.getItmPermisos().setVisible(per.contains((String) "Principal.Seguridad.Permisos"));
 		this.ventana.getItmUsuarios().setVisible(per.contains((String)"Principal.Seguridad.Usuarios"));
 		this.ventana.getItmEquipos().setVisible(per.contains((String)"Principal.Seguridad.Equipos"));
-		this.ventana.getMnBackUpDatos().setVisible(per.contains((String)"Principal.BackUpDatos"));
+		
+		this.ventana.getMnAcciones().setVisible(per.contains((String)"Principal.Acciones"));
+		this.ventana.getItmBusquedaP().setVisible(per.contains((String)"Principal.Acciones.BusquedaP"));
 	}
 
 	public void inicializar()
@@ -83,6 +89,9 @@ public class PrincipalController implements ActionListener, WindowListener
 		}else if(e.getSource()==this.ventana.getItmEquipos()) {
 			EquiposController equ= new EquiposController(new frmEquipos(),this.modelo);
 			equ.inicializar();
+		}else if(e.getSource()==this.ventana.getItmBusquedaP()) {
+			BusquedaPController bp= new BusquedaPController(new frmBusquedaP(),this.modelo);
+			bp.inicializar();
 		}
 
 	}

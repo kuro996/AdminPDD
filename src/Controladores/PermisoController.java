@@ -187,6 +187,7 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 		{
 			this.ventana.getTblAsig().clearSelection();
 			this.ventana.getArbPermisos().clearSelection();
+			this.ventana.getLblFoto().setVisible(e.getSource() == this.ventana.getRdbtnUsuarios());
 			llenarTablas();
 		}
 	}
@@ -222,12 +223,6 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 								(DefaultMutableTreeNode) this.ventana.getArbPermisos().getModel().getRoot(), 0);
 					}
 					
-					Image img= new ImageIcon("avatar.jpg").getImage();
-					
-					ImageIcon img2=new ImageIcon(img.getScaledInstance(this.ventana.getLblFoto().getWidth(), this.ventana.getLblFoto().getHeight(), Image.SCALE_SMOOTH));
-					
-					this.ventana.getLblFoto().setIcon(img2);
-					this.ventana.getLblFoto().repaint();
 				}
 			}
 		}

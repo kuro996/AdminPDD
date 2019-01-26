@@ -30,6 +30,8 @@ public class frmPrincipal extends JFrame{
 	private JMenu mnBackUpDatos;
 	private JMenuItem itmExportar;
 	private JMenuItem itmImportar;
+	private JMenu mnAcciones;
+	private JMenuItem itmBusquedaP;
 	
 	public frmPrincipal() { 
 			
@@ -114,6 +116,12 @@ public class frmPrincipal extends JFrame{
 		
 		itmPermisos = new JMenuItem("Permisos");
 		mnSeguridad.add(itmPermisos);
+		
+		mnAcciones = new JMenu("Acciones");
+		menuSup.add(mnAcciones);
+		
+		itmBusquedaP = new JMenuItem("Busqueda Predicas");
+		mnAcciones.add(itmBusquedaP);
 				
 	}
 
@@ -206,6 +214,18 @@ public class frmPrincipal extends JFrame{
 
 	public JMenu getMnBackUpDatos() {
 		return mnBackUpDatos;
+	}
+
+
+	public JMenuItem getItmBusquedaP()
+	{
+		return itmBusquedaP;
+	}
+
+
+	public JMenu getMnAcciones()
+	{
+		return mnAcciones;
 	}
 
 

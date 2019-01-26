@@ -4,5 +4,14 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="mysql-connector-java-5.1.35-bin.jar"/>
 	<classpathentry kind="lib" path="Librerias/JTattooDemo.jar"/>
+	<classpathentry kind="lib" path="seaglasslookandfeel-0.2.1.jar"/>
+	<classpathentry kind="lib" path="weblaf-complete-1.29.jar"/>
+	<classpathentry kind="lib" path="synthetica.jar"/>
+	<classpathentry kind="lib" path="Librerias/syntheticaBlackEye.jar"/>
+	<classpathentry kind="lib" path="Librerias/syntheticaBlackMoon.jar"/>
+	<classpathentry kind="lib" path="Librerias/seaglasslookandfeel-0.2.1.jar"/>
+	<classpathentry kind="lib" path="Librerias/synthetica.jar"/>
+	<classpathentry kind="lib" path="Librerias/weblaf-complete-1.29.jar"/>
+	<classpathentry kind="lib" path="Librerias/mysql-connector-java-5.1.35-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
