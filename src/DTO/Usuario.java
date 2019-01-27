@@ -26,7 +26,7 @@ public class Usuario {
 	
 
 	public String getTipo() {
-		return tipo;
+		return this.tipo;
 	}
 
 	public void setTipo(String tipo) {

@@ -53,6 +53,7 @@ public class UsuariosDAOSQL
 					imagen = new ImageIcon("avatar.jpg");
 				}
 
+				
 				resultados =new Usuario(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
 						resultSet.getString(5), resultSet.getString(6), resultSet.getString(8), resultSet.getString(9),
 						imagen);

@@ -14,24 +14,24 @@ import Componentes.CLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.JPanel;
+import java.awt.Rectangle;
+import javax.swing.JSeparator;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
+import javax.swing.JButton;
 
 public class frmPrincipal extends JFrame{
+	private JLabel LblFoto;
+	private JLabel lblNombre;
+	private JLabel lblCargo;
+	private JButton btnPerfil;
+	private JButton btnCerrarSesion;
+	private JButton btnCambiarCon;
+	private JButton btnPermisos;
+	private JButton btnBuscarPredicas;
+	private JButton btnSalir;
+	private JLabel lblLogo;
 	
-	private JMenuItem itmCerrarSesion;
-	private JMenuItem itmSalir;
-	private JMenu mnArchivo;
-	private JMenu mnSeguridad;
-	private JMenuBar menuSup;
-	private JMenuItem itmPermisos;
-	private CLabel LblFoto;
-	private JPanel panel;
-	private JMenuItem itmUsuarios;
-	private JMenuItem itmEquipos;
-	private JMenu mnBackUpDatos;
-	private JMenuItem itmExportar;
-	private JMenuItem itmImportar;
-	private JMenu mnAcciones;
-	private JMenuItem itmBusquedaP;
 	
 	public frmPrincipal() { 
 			
@@ -43,190 +43,183 @@ public class frmPrincipal extends JFrame{
 		Toolkit t = Toolkit.getDefaultToolkit();
 		this.setBounds(0, 0, t.getScreenSize().width, t.getScreenSize().height);
 		
-		panel = new JPanel();
+		LblFoto = new JLabel();
+		LblFoto.setBorder(new LineBorder(new Color(0, 0, 0)));
+		LblFoto.setVerticalTextPosition(SwingConstants.BOTTOM);
+		LblFoto.setVerticalAlignment(SwingConstants.BOTTOM);
+		LblFoto.setToolTipText("");
+		LblFoto.setText("");
+		LblFoto.setIconTextGap(0);
+		
+		JSeparator separator = new JSeparator();
+		separator.setForeground(Color.WHITE);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setForeground(Color.WHITE);
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		
+		lblNombre = new JLabel("sads");
+		lblNombre.setVerticalTextPosition(SwingConstants.BOTTOM);
+		lblNombre.setVerticalAlignment(SwingConstants.BOTTOM);
+		lblNombre.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblNombre.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		lblCargo = new JLabel("xz");
+		lblCargo.setVerticalTextPosition(SwingConstants.TOP);
+		lblCargo.setVerticalAlignment(SwingConstants.TOP);
+		lblCargo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCargo.setHorizontalTextPosition(SwingConstants.CENTER);
+		
+		btnPerfil = new JButton("Mi Perfil");
+		
+		btnCambiarCon = new JButton("Cambiar Contrase\u00F1a");
+		
+		btnCerrarSesion = new JButton("Cerrar Sesi\u00F2n");
+		
+		btnPermisos = new JButton("Permisos");
+		
+		btnBuscarPredicas = new JButton("Buscar Predicas");
+		
+		btnSalir = new JButton("Salir");
+		
+		lblLogo = new JLabel("Logo");
+		lblLogo.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addComponent(separator, GroupLayout.PREFERRED_SIZE, 1360, GroupLayout.PREFERRED_SIZE)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(1474)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-					.addContainerGap())
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(20)
+							.addComponent(LblFoto, GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+							.addGap(24))
+						.addComponent(lblNombre, GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+						.addComponent(lblCargo, GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(29)
+							.addComponent(btnPerfil, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+							.addGap(32))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(29)
+							.addComponent(btnCambiarCon, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+							.addGap(32))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(29)
+							.addComponent(btnCerrarSesion, GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+							.addGap(32))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(69)
+							.addComponent(btnSalir, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+							.addGap(72)))
+					.addGap(4)
+					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 9, GroupLayout.PREFERRED_SIZE)
+					.addGap(10)
+					.addComponent(btnPermisos, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+					.addGap(27)
+					.addComponent(btnBuscarPredicas, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+					.addGap(882))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(lblLogo, GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+					.addGap(1305))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(0)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-					.addGap(755))
+					.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(11)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnBuscarPredicas)
+						.addComponent(btnPermisos)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(LblFoto, GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+							.addGap(6)
+							.addComponent(lblNombre)
+							.addGap(6)
+							.addComponent(lblCargo)
+							.addGap(18)
+							.addComponent(btnPerfil)
+							.addGap(6)
+							.addComponent(btnCambiarCon)
+							.addGap(6)
+							.addComponent(btnCerrarSesion)
+							.addGap(6)
+							.addComponent(btnSalir)
+							.addGap(348))
+						.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 671, GroupLayout.PREFERRED_SIZE)))
 		);
-		
-		LblFoto = new CLabel();
-		LblFoto.setToolTipText("");
-		LblFoto.setVerticalAlignment(SwingConstants.BOTTOM);
-		LblFoto.setIconTextGap(0);
-		LblFoto.setVerticalTextPosition(SwingConstants.BOTTOM);
-		LblFoto.setText("");
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(3)
-					.addComponent(LblFoto, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
-				.addComponent(LblFoto, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-		);
-		panel.setLayout(gl_panel);
 		getContentPane().setLayout(groupLayout);
-		
-		menuSup = new JMenuBar();
-		setJMenuBar(menuSup);
-		
-		mnArchivo = new JMenu("Archivo");
-		mnArchivo.setToolTipText("");
-		mnArchivo.setName("");
-		menuSup.add(mnArchivo);
-		
-		itmCerrarSesion = new JMenuItem("Cerrar Sesion");
-		mnArchivo.add(itmCerrarSesion);
-		
-		mnBackUpDatos = new JMenu("Back Up Datos");
-		mnArchivo.add(mnBackUpDatos);
-		
-		itmExportar = new JMenuItem("Exportar");
-		mnBackUpDatos.add(itmExportar);
-		
-		itmImportar = new JMenuItem("Importar");
-		mnBackUpDatos.add(itmImportar);
-		
-		itmSalir = new JMenuItem("Salir");
-		mnArchivo.add(itmSalir);
-		
-		mnSeguridad = new JMenu("Seguridad");
-		menuSup.add(mnSeguridad);
-		
-		itmUsuarios = new JMenuItem("Usuarios");
-		mnSeguridad.add(itmUsuarios);
-		
-		itmEquipos = new JMenuItem("Equipos");
-		itmEquipos.setActionCommand("Equipos");
-		mnSeguridad.add(itmEquipos);
-		
-		itmPermisos = new JMenuItem("Permisos");
-		mnSeguridad.add(itmPermisos);
-		
-		mnAcciones = new JMenu("Acciones");
-		menuSup.add(mnAcciones);
-		
-		itmBusquedaP = new JMenuItem("Busqueda Predicas");
-		mnAcciones.add(itmBusquedaP);
 				
 	}
 
 
-	public JMenu getMnArchivo() {
-		return mnArchivo;
+
+	public JButton getItmCerrarSesion() {
+		return btnCerrarSesion;
 	}
 
-	public void setMnArchivo(JMenu mnArchivo) {
-		this.mnArchivo = mnArchivo;
+	public void setBtnCerrarSesion(JButton itmCerrarSesion) {
+		this.btnCerrarSesion = itmCerrarSesion;
 	}
 
-	public JMenu getMnSeguridad1() {
-		return mnSeguridad;
+	public JButton getBtnSalir() {
+		return btnSalir;
 	}
 
-	public void setMnSeguridad1(JMenu Seguridad) {
-		this.mnSeguridad = Seguridad;
+	public void setBtnSalir(JButton itmSalir) {
+		this.btnSalir = itmSalir;
 	}
 
-
-	public void setMenuBar(JMenuBar menuBar) {
-		this.menuSup = menuBar;
+	public JButton getBtnPermisos() {
+		return btnPermisos;
 	}
 
-	public JMenuItem getItmCerrarSesion() {
-		return itmCerrarSesion;
-	}
-
-	public void setItmCerrarSesion(JMenuItem itmCerrarSesion) {
-		this.itmCerrarSesion = itmCerrarSesion;
-	}
-
-	public JMenuItem getItmSalir() {
-		return itmSalir;
-	}
-
-	public void setItmSalir(JMenuItem itmSalir) {
-		this.itmSalir = itmSalir;
-	}
-
-	public JMenu getMnSeguridad() {
-		return mnSeguridad;
-	}
-
-	public void setMnSeguridad(JMenu mnSeguridad) {
-		this.mnSeguridad = mnSeguridad;
-	}
-
-	public JMenuItem getItmPermisos() {
-		return itmPermisos;
-	}
-
-	public void setItmPermisos(JMenuItem mntmPermisosPorUsuarios) {
-		this.itmPermisos = mntmPermisosPorUsuarios;
+	public void setBtnPermisos(JButton mntmPermisosPorUsuarios) {
+		this.btnPermisos = mntmPermisosPorUsuarios;
 	}
 
 
-	public CLabel getLblFoto()
+	public JLabel getLblFoto()
 	{
 		return LblFoto;
 	}
 
 
-	public void setLblFoto(CLabel lblFoto)
+	public void setLblFoto(JLabel lblFoto)
 	{
 		LblFoto = lblFoto;
 	}
 
-
-	public JMenuItem getItmUsuarios() {
-		return itmUsuarios;
-	}
-
-
-	public JMenuItem getItmEquipos() {
-		return itmEquipos;
-	}
-
-
-	public JMenuItem getItmExportar() {
-		return itmExportar;
-	}
-
-
-	public JMenuItem getItmImportar() {
-		return itmImportar;
-	}
-
-
-	public JMenu getMnBackUpDatos() {
-		return mnBackUpDatos;
-	}
-
-
-	public JMenuItem getItmBusquedaP()
+	public JButton getBtnBusquedaP()
 	{
-		return itmBusquedaP;
+		return btnBuscarPredicas;
 	}
 
 
-	public JMenu getMnAcciones()
+
+	public JLabel getLblNombre()
 	{
-		return mnAcciones;
+		return lblNombre;
 	}
 
 
+	public void setLblNombre(JLabel lblNombre)
+	{
+		this.lblNombre = lblNombre;
+	}
+
+
+	public JLabel getLblCargo()
+	{
+		return lblCargo;
+	}
+
+
+	public void setLblCargo(JLabel lblCargo)
+	{
+		this.lblCargo = lblCargo;
+	}
 }

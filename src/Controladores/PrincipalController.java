@@ -32,13 +32,9 @@ public class PrincipalController implements ActionListener, WindowListener
 		this.ventana = ventana;
 		this.modelo = admin;
 		this.ventana.getItmCerrarSesion().addActionListener(this);
-		this.ventana.getItmSalir().addActionListener(this);
-		this.ventana.getItmPermisos().addActionListener(this);
-		this.ventana.getItmUsuarios().addActionListener(this);
-		this.ventana.getItmEquipos().addActionListener(this);
-		this.ventana.getItmImportar().addActionListener(this);
-		this.ventana.getItmExportar().addActionListener(this);
-		this.ventana.getItmBusquedaP().addActionListener(this);
+		this.ventana.getBtnSalir().addActionListener(this);
+		this.ventana.getBtnPermisos().addActionListener(this);
+		this.ventana.getBtnBusquedaP().addActionListener(this);
 		this.ventana.addWindowListener(this);
 
 		this.verificarPermisos(admin);
@@ -47,105 +43,97 @@ public class PrincipalController implements ActionListener, WindowListener
 	private void verificarPermisos(AdminPDD admin)
 	{
 		ArrayList<String> per = this.modelo.Permisos(name);
-		this.ventana.getMnBackUpDatos().setVisible(per.contains((String)"Principal.BackUpDatos"));
-		
-		this.ventana.getMnSeguridad().setVisible(per.contains((String) "Principal.Seguridad"));
-		this.ventana.getItmPermisos().setVisible(per.contains((String) "Principal.Seguridad.Permisos"));
-		this.ventana.getItmUsuarios().setVisible(per.contains((String)"Principal.Seguridad.Usuarios"));
-		this.ventana.getItmEquipos().setVisible(per.contains((String)"Principal.Seguridad.Equipos"));
-		
-		this.ventana.getMnAcciones().setVisible(per.contains((String)"Principal.Acciones"));
-		this.ventana.getItmBusquedaP().setVisible(per.contains((String)"Principal.Acciones.BusquedaP"));
+
+		this.ventana.getBtnPermisos().setVisible(per.contains((String) "Principal.Seguridad.Permisos"));
+		this.ventana.getBtnBusquedaP().setVisible(per.contains((String) "Principal.Acciones.BusquedaP"));
 	}
 
 	public void inicializar()
 	{
-		Image img= this.modelo.getUsulog().getImagen().getImage();
-		ImageIcon img2=new ImageIcon(img.getScaledInstance(this.ventana.getLblFoto().getWidth(), this.ventana.getLblFoto().getHeight(), Image.SCALE_FAST));
-		this.ventana.getLblFoto().setIcon(img2);
-
-		this.ventana.getLblFoto().setToolTipText(this.modelo.getUsulog().getApellido()+" ,"+this.modelo.getUsulog().getNombre());
-		
+		Image img = this.modelo.getUsulog().getImagen().getImage();
+		this.ventana.getLblNombre()
+				.setText(this.modelo.getUsulog().getApellido() + " ," + this.modelo.getUsulog().getNombre());
+		this.ventana.getLblCargo().setText("(" + this.modelo.getUsulog().getTipo() + ")");
 		this.ventana.setVisible(true);
+
+		ImageIcon img2 = new ImageIcon(img.getScaledInstance(this.ventana.getLblFoto().getWidth() + 10,
+				this.ventana.getLblFoto().getHeight() + 10, Image.SCALE_FAST));
+		this.ventana.getLblFoto().setIcon(img2);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-		if (e.getSource() == this.ventana.getItmCerrarSesion() && cerrar()==0)
+		if (e.getSource() == this.ventana.getItmCerrarSesion() && cerrar() == 0)
 		{
 			this.ventana.dispose();
 			main.main(null);
-		} else if (e.getSource() == this.ventana.getItmSalir() && cerrar()==0)
+		} else if (e.getSource() == this.ventana.getBtnSalir() && cerrar() == 0)
 		{
 			this.ventana.dispose();
-		} else if (e.getSource() == this.ventana.getItmPermisos())
+		} else if (e.getSource() == this.ventana.getBtnPermisos())
 		{
 			PermisoController per = new PermisoController(new frmPermisos(), this.modelo);
 			per.inicializar();
-		}else if(e.getSource()==this.ventana.getItmUsuarios()) {
-			UsuariosController usu= new UsuariosController(new frmUsuarios(),this.modelo);
-			usu.inicializar();
-		}else if(e.getSource()==this.ventana.getItmEquipos()) {
-			EquiposController equ= new EquiposController(new frmEquipos(),this.modelo);
-			equ.inicializar();
-		}else if(e.getSource()==this.ventana.getItmBusquedaP()) {
-			BusquedaPController bp= new BusquedaPController(new frmBusquedaP(),this.modelo);
+		} else if (e.getSource() == this.ventana.getBtnBusquedaP())
+		{
+			BusquedaPController bp = new BusquedaPController(new frmBusquedaP(), this.modelo);
 			bp.inicializar();
 		}
 
 	}
 
-	
-	private int cerrar() {
-		return JOptionPane.showConfirmDialog(this.ventana, "¿Seguro que desea salir?", "Salir de AdminPDD", JOptionPane.YES_NO_OPTION,
-				1);
+	private int cerrar()
+	{
+		return JOptionPane.showConfirmDialog(this.ventana, "¿Seguro que desea salir?", "Salir de AdminPDD",
+				JOptionPane.YES_NO_OPTION, 1);
 	}
 
 	@Override
 	public void windowActivated(WindowEvent arg0)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowClosed(WindowEvent arg0)
 	{
-				
+
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent arg0)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent arg0)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowIconified(WindowEvent arg0)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowOpened(WindowEvent arg0)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		if(this.cerrar()==0) this.ventana.dispose();		
+		if (this.cerrar() == 0)
+			this.ventana.dispose();
 	}
 }
