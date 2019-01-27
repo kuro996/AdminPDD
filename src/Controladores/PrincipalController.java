@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import Main.AdminPDD;
-import Main.Main;
+import Main.main;
 import Pantallas.frmBusquedaP;
 import Pantallas.frmEquipos;
 import Pantallas.frmPermisos;
@@ -75,7 +75,7 @@ public class PrincipalController implements ActionListener, WindowListener
 		if (e.getSource() == this.ventana.getItmCerrarSesion() && cerrar()==0)
 		{
 			this.ventana.dispose();
-			Main.main(null);
+			main.main(null);
 		} else if (e.getSource() == this.ventana.getItmSalir() && cerrar()==0)
 		{
 			this.ventana.dispose();

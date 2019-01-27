@@ -95,8 +95,7 @@ public class PermisoController implements ActionListener, MouseListener, ChangeL
 
 	private void llenarArbol()
 	{
-		DefaultMutableTreeNode asd = new DefaultMutableTreeNode(new Funcion(1, "Principal", "Principal"));
-		asd = llenarNodo(asd, new Funcion(1, "Principal", "Principal"));
+		DefaultMutableTreeNode asd = llenarNodo(new DefaultMutableTreeNode("Principal"), new Funcion(1, "Principal", "Principal")); 
 		DefaultTreeModel as = new DefaultTreeModel(asd);
 		this.ventana.getArbPermisos().setModel(as);
 		for (int i = 0; i < this.ventana.getArbPermisos().getRowCount(); i++)

@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="mysql-connector-java-5.1.35-bin.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="Librerias/JTattooDemo.jar"/>
-	<classpathentry kind="lib" path="seaglasslookandfeel-0.2.1.jar"/>
-	<classpathentry kind="lib" path="weblaf-complete-1.29.jar"/>
-	<classpathentry kind="lib" path="synthetica.jar"/>
 	<classpathentry kind="lib" path="Librerias/syntheticaBlackEye.jar"/>
 	<classpathentry kind="lib" path="Librerias/syntheticaBlackMoon.jar"/>
 	<classpathentry kind="lib" path="Librerias/seaglasslookandfeel-0.2.1.jar"/>

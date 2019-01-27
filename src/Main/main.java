@@ -1,13 +1,12 @@
 package Main;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import Controladores.LoginController;
 import Pantallas.frmLogin;
-import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaBlackMoonLookAndFeel;
 
-public class Main {
+public class main {
 
 	public static void main(String[] args) {
 		try {
@@ -23,6 +22,7 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 		AdminPDD admin=new AdminPDD();
 		frmLogin formularioLogin = new frmLogin();
 		LoginController ctrLogin = new LoginController(formularioLogin,admin);

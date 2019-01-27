@@ -42,6 +42,8 @@ public class frmPermisos extends JDialog{
 		
 		setBounds(100, 100, 411, 654);
 		
+		
+		
 		btnEditar = new JButton("Editar");
 		
 		btnCancelar = new JButton("Cancelar");

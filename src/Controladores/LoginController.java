@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 import Conexion.Conexion;
 import Main.AdminPDD;
-import Main.Main;
+import Main.main;
 import Pantallas.frmLogin;
 import Pantallas.frmPrincipal;
 
